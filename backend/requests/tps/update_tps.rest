@@ -1,0 +1,10 @@
+PUT http://localhost:3001/tps/1
+Content-Type: application/json
+
+{
+  "nomer_tps": "tps002",
+  "jumlah_dpt": "200",
+  "kecamatan_id": "2",
+  "desa_id": "2"
+}
+

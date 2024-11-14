@@ -1,14 +1,18 @@
 const express = require('express');
+require('dotenv').config()
 
 const app = express();
 const tpsRouter = require('./routes/tps')
 const middleware = require('./utils/middleware')
 
-const port = 3001;
-app.use(middleware.requestLogger)
-app.use('/tps', tpsRouter)
+const PORT = process.env.PORT;
+
+app.use(express.json());
+app.use(middleware.requestLogger);
+
+app.use('/tps', tpsRouter);
 
 
-app.listen(port, () => {
-	console.log("Server berhasil running di port:3001")
+app.listen(PORT, () => {
+	console.log(`Server berhasil running di port:${PORT}`)
 })
