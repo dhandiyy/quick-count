@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config()
 
 const app = express();
-const tpsRouter = require('./routes/tps')
+const tpsRouter = require('./routes/tps.route')
 const middleware = require('./utils/middleware')
 
 const PORT = process.env.PORT;

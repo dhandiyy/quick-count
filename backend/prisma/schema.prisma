@@ -13,6 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Status {
+  PARTIAL
+  COMPLETE
+}
+
 model Paslon {
   id         Int    @id @default(autoincrement())
   nomer_urut Int
@@ -24,6 +34,7 @@ model Kecamatan {
   id             Int    @id @default(autoincrement())
   nama_kecamatan String
   Desa           Desa[]
+  Tps            Tps[]
 }
 
 model Desa {
@@ -31,4 +42,40 @@ model Desa {
   nama_desa    String
   Kecamatan    Kecamatan @relation(fields: [kecamatan_id], references: [id])
   kecamatan_id Int
+  Tps          Tps[]
+}
+
+model Admin {
+  id         Int          @id @default(autoincrement())
+  username   String
+  password   String
+  nama       String
+  role       Role         @default(ADMIN)
+  HasilSuara HasilSuara[]
+}
+
+model Tps {
+  id           Int          @id @default(autoincrement())
+  nomer_tps    String
+  jumlah_dpt   Int
+  Kecamatan    Kecamatan    @relation(fields: [kecamatan_id], references: [id])
+  kecamatan_id Int
+  Desa         Desa         @relation(fields: [desa_id], references: [id])
+  desa_id      Int
+  HasilSuara   HasilSuara[]
+}
+
+model HasilSuara {
+  id                     Int      @id @default(autoincrement())
+  Tps                    Tps      @relation(fields: [tps_id], references: [id])
+  tps_id                 Int
+  jumlah_suara_paslon1   Int
+  jumlah_suara_paslon2   Int
+  jumlah_suara_tidak_sah Int
+  total_suara_masuk      Int
+  status                 Status   @default(PARTIAL)
+  Admin                  Admin    @relation(fields: [created_by], references: [id])
+  created_by             Int
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
 }

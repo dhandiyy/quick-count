@@ -2,8 +2,8 @@ POST http://localhost:3001/tps
 Content-Type: application/json
 
 {
-  "nomer_tps": "tps01",
-  "jumlah_dpt": "10",
-  "kecamatan_id": "1",
-  "desa_id": "1"
+  "nomer_tps": "tps002",
+  "jumlah_dpt": 10,
+  "kecamatan_id": 1,
+  "desa_id": 1
 }
