@@ -1,2 +1,0 @@
-GET http://localhost:3001/tps/1
-Accept: application/json

@@ -2,62 +2,62 @@ const prisma = require('../utils/dbConfig');
 
 const getAll = async () => {
 	try {
-		return await prisma.tps.findMany({
+		return await prisma.paslon.findMany({
 			orderBy: {
 				id: 'asc',
 			}
 		});
 	} catch (error) {
-		throw new Error(`Error getting TPS: ${error}`)
+		throw new Error(`Error getting Paslon: ${error}`)
 	}
 }
 
 const create = async (payload) => {
 	try {
-		return await prisma.tps.create({
+		return await prisma.paslon.create({
 			data: payload
 		});
 
 	} catch (error) {
-		throw new Error(`Error creating TPS: ${error}`);
+		throw new Error(`Error creating Paslon: ${error}`);
 	}
 }
 
 const remove = async (id) => {
 	try {
-		return await prisma.tps.delete({
+		return await prisma.paslon.delete({
 			where: {
 				id: Number(id)
 			}
 		})
 	} catch (error) {
-		throw new Error(`Error deleting TPS: ${error}`);
+		throw new Error(`Error deleting Paslon: ${error}`);
 	}
 }
 
 const getById = async (id) => {
 	try {
-		return await prisma.tps.findUnique({
+		return await prisma.paslon.findUnique({
 			where: {
 				id: Number(id)
 			},
 		})
 	} catch (error) {
-		throw new Error(`Error getting TPS by ID: ${error.message}`);
+		throw new Error(`Error getting Paslon by ID: ${error.message}`);
 	}
 }
 
 const update = async (id, payload) => {
 	console.log(payload)
 	try {
-		return await prisma.tps.update({
+		return await prisma.paslon.update({
 			where: {
 				id: Number(id)
 			},
 			data: payload
 		})
 	} catch (error) {
-		throw new Error(`Error updating TPS: ${error.message}`);
+		throw new Error(`Error updating Paslon: ${error.message}`);
 	}
 
 }
@@ -67,5 +67,5 @@ module.exports = {
 	create,
 	remove,
 	getById,
-	update
+	update,
 }

@@ -1,11 +1,11 @@
-const tpsService = require('../services/tps.service')
+const paslonService = require('../services/paslon.service')
 
-const getAllTps = async (request, response) => {
+const getAllPaslon = async (request, response) => {
 	try {
 
-		const data = await tpsService.getAllTps();
+		const data = await paslonService.getAllPaslon();
 		return response.status(200).json({
-			message: 'Get all TPS success',
+			message: 'Get all Paslon success',
 			data: data,
 		});
 
@@ -19,12 +19,12 @@ const getAllTps = async (request, response) => {
 
 }
 
-const createNewTps = async (request, response) => {
+const createNewPaslon = async (request, response) => {
 	try {
 		const payload = request.body;
-		await tpsService.createNewTps(payload)
+		await paslonService.createNewPaslon(payload)
 		response.status(201).json({
-			message: "Create new TPS success",
+			message: "Create new Paslon success",
 			data: payload
 		})
 	} catch (error) {
@@ -36,23 +36,23 @@ const createNewTps = async (request, response) => {
 	}
 }
 
-const updateTps = async (request, response) => {
+const updatePaslon = async (request, response) => {
 	try {
 		const payload = request.body;
 		const id = request.params.id;
-		await tpsService.updateTps(id, payload);
+		await paslonService.updatePaslon(id, payload);
 		response.json({
-			message: "Update TPS success",
+			message: "Update Paslon success",
 			data: {
 				id: id,
 				...payload
 			}
 		})
 	} catch (error) {
-		if (error.message === 'TPS not found') {
+		if (error.message === 'Paslon not found') {
 			return response.status(404).json({
 				status: 'error',
-				message: 'TPS not found'
+				message: 'Paslon not found'
 			});
 		}
 		return response.status(500).json({
@@ -64,18 +64,18 @@ const updateTps = async (request, response) => {
 }
 
 
-const deleteTps = async (request, response) => {
+const deletePaslon = async (request, response) => {
 	try {
 		const id = request.params.id
-		await tpsService.deleteTps(id);
+		await paslonService.deletePaslon(id);
 		response.json({
-			message: `Delete TPS with ${id} success`
+			message: `Delete Paslon with ${id} success`
 		})
 	} catch (error) {
-		if (error.message === 'TPS not found') {
+		if (error.message === 'Paslon not found') {
 			return response.status(404).json({
 				status: 'error',
-				message: 'TPS not found'
+				message: 'Paslon not found'
 			});
 		}
 		return response.status(500).json({
@@ -86,20 +86,20 @@ const deleteTps = async (request, response) => {
 	}
 }
 
-const getTpsById = async (req, res) => {
+const getPaslonById = async (req, res) => {
 	try {
 		const id = req.params.id;
-		const data = await tpsService.getTpsById(id);
+		const data = await paslonService.getPaslonById(id);
 		return res.status(200).json({
 			status: 'success',
-			message: 'Get TPS success',
+			message: 'Get Paslon success',
 			data
 		});
 	} catch (error) {
-		if (error.message === 'TPS not found') {
+		if (error.message === 'Paslon not found') {
 			return res.status(404).json({
 				status: 'error',
-				message: 'TPS not found'
+				message: 'Paslon not found'
 			});
 		}
 		return res.status(500).json({
@@ -111,9 +111,9 @@ const getTpsById = async (req, res) => {
 };
 
 module.exports = {
-	getAllTps,
-	createNewTps,
-	deleteTps,
-	getTpsById,
-	updateTps
+	getAllPaslon,
+	createNewPaslon,
+	deletePaslon,
+	getPaslonById,
+	updatePaslon
 }
