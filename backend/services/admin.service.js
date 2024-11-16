@@ -1,5 +1,5 @@
 const adminRepository = require('../repository/admin.repository')
-const {ROLE, isValidRole} = require('../utils/validator')
+const {isValidRole} = require('../utils/validator')
 
 //validasi
 
@@ -51,7 +51,7 @@ const updateAdmin = async (id, payload) => {
 
 		const existingAdmin = await adminRepository.getById(id)
 		if (!existingAdmin) {
-			throw new Error('Paslon not found')
+			throw new Error('Admin not found')
 		}
 		return await adminRepository.update(id, payload)
 	} catch (error) {
