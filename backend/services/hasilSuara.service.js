@@ -24,6 +24,7 @@ const createNewHasilSuara = async (payload) => {
 			total_suara_masuk: payload.total_suara_masuk,
 			status: payload.status,
 			created_by: admin.id,
+			approval: payload.approval,
 		}
 
 		return await hasilSuaraRepository.create(suara)
@@ -44,7 +45,7 @@ const getHasilSuaraById = async (id) => {
 	try {
 		const hasilSuara = await hasilSuaraRepository.getById(id)
 		if (!hasilSuara) {
-			throw new Error('Hasil Suara no found');
+			throw new Error('Hasil Suara not found');
 		}
 		return hasilSuara;
 	} catch (error) {
@@ -69,6 +70,7 @@ const updateHasilSuara = async (id, payload) => {
 			total_suara_masuk: payload.total_suara_masuk,
 			status: payload.status,
 			created_by: admin.id,
+			approval: payload.approval,
 		}
 
 		return await hasilSuaraRepository.update(id, newHasilSuara)

@@ -1,8 +1,31 @@
 const adminService = require('../services/admin.service')
 
+
+const login = async (request, response) => {
+	try {
+		const {username, password} = request.body
+		const adminValidated = await adminService.getAdminByUsername(username, password)
+
+		if(!adminValidated){
+			return response.status(401).json({
+				error: 'invalid username or password'
+			})
+		}
+
+		return response.status(200).json({
+			data: adminValidated
+		})
+	} catch (error) {
+		return response.status(500).json({
+			status: 'error',
+			message: 'Internal server error',
+			error: error.message
+		})
+	}
+}
+
 const getAllAdmin = async (request, response) => {
 	try {
-
 		const data = await adminService.getAllAdmin();
 		return response.status(200).json({
 			message: 'Get all Admin success',
@@ -115,5 +138,6 @@ module.exports = {
 	createNewAdmin,
 	deleteAdmin,
 	getAdminById,
-	updateAdmin
+	updateAdmin,
+	login
 }

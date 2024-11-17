@@ -47,6 +47,18 @@ const getById = async (id) => {
 	}
 }
 
+const getByUsername = async (username) => {
+	try {
+		return await prisma.admin.findUnique({
+			where: {
+				username: username
+			}
+		})
+	} catch (error) {
+		throw new Error(`Error getting Admin by username: ${error.message}`)
+	}
+}
+
 const update = async (id, payload) => {
 	console.log(payload)
 	try {
@@ -68,4 +80,5 @@ module.exports = {
 	remove,
 	getById,
 	update,
+	getByUsername
 }

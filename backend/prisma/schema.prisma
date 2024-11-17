@@ -18,6 +18,12 @@ enum Role {
   SUPER_ADMIN
 }
 
+enum Approval {
+  ACCEPT
+  REJECT
+  PENDING
+}
+
 enum Status {
   PARTIAL
   COMPLETE
@@ -47,7 +53,7 @@ model Desa {
 
 model Admin {
   id         Int          @id @default(autoincrement())
-  username   String
+  username   String       @unique
   password   String
   nama       String
   role       Role         @default(ADMIN)
@@ -74,6 +80,7 @@ model HasilSuara {
   jumlah_suara_tidak_sah Int
   total_suara_masuk      Int
   status                 Status   @default(PARTIAL)
+  approval               Approval @default(PENDING)
   Admin                  Admin    @relation(fields: [created_by], references: [id])
   created_by             Int
   created_at             DateTime @default(now())

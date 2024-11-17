@@ -1,5 +1,7 @@
 const adminRepository = require('../repository/admin.repository')
 const {isValidRole} = require('../utils/validator')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 //validasi
 
@@ -17,7 +19,18 @@ const createNewAdmin = async (payload) => {
 			throw new Error('Role tidak valid')
 		}
 
-		return await adminRepository.create(payload)
+		const saltRounds = 10
+		const passwordHash = await bcrypt.hash(payload.password, saltRounds)
+
+		const newPayload = {
+			username: payload.username,
+			password: passwordHash,
+			nama: payload.nama,
+			role: payload.role
+		}
+		console.log(newPayload)
+
+		return await adminRepository.create(newPayload)
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
 	}
@@ -35,11 +48,41 @@ const getAdminById = async (id) => {
 	try {
 		const admin = await adminRepository.getById(id)
 		if (!admin) {
-			throw new Error('Admin no found');
+			throw new Error('Admin not found');
 		}
 		return admin;
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
+	}
+}
+
+const getAdminByUsername = async (username, password) => {
+	try {
+		const admin = await adminRepository.getByUsername(username)
+
+		const passwordCorrect = admin === null
+			? false
+			: await bcrypt.compare(password, admin.password)
+
+		if(!(admin && passwordCorrect)){
+			throw new Error('Invalid username and password')
+		}else if (!admin) {
+			throw new Error('Admin not found')
+		}
+
+		const userForToken = {
+			username: admin.username,
+			id: admin.id
+		}
+		const token = jwt.sign(userForToken, "quickCountSumenep")
+
+		return {
+			token,
+			name: admin.nama,
+			username: admin.username
+		}
+	} catch (error) {
+		throw new Error(`Service error: ${error.message}`)
 	}
 }
 
@@ -66,4 +109,5 @@ module.exports = {
 	deleteAdmin,
 	getAdminById,
 	updateAdmin,
+	getAdminByUsername
 }
