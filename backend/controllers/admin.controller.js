@@ -4,7 +4,7 @@ const adminService = require('../services/admin.service')
 const login = async (request, response) => {
 	try {
 		const {username, password} = request.body
-		const adminValidated = await adminService.getAdminByUsername(username, password)
+		const adminValidated = await adminService.loginAdmin(username, password)
 
 		if(!adminValidated){
 			return response.status(401).json({

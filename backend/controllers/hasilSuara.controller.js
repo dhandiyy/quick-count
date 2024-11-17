@@ -19,20 +19,17 @@ const getAllHasilSuara = async (request, response) => {
 
 }
 
-const createNewHasilSuara = async (request, response) => {
+const createNewHasilSuara = async (request, response, next) => {
 	try {
 		const payload = request.body;
-		await hasilSuaraService.createNewHasilSuara(payload)
+		await hasilSuaraService.createNewHasilSuara(request)
 		response.status(201).json({
 			message: "Create new Hasil Suara success",
 			data: payload
 		})
 	} catch (error) {
-		return response.status(500).json({
-			status: 'error',
-			message: 'Internal server error',
-			error: error.message
-		})
+		console.log(error)
+		next(error)
 	}
 }
 

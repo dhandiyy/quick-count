@@ -2,7 +2,16 @@ const hasilSuaraRepository = require('../repository/hasilSuara.repository')
 const tpsService = require('../services/tps.service')
 const adminService = require('../services/admin.service')
 
-//validasi
+const jwt = require('jsonwebtoken')
+
+const getTokenFrom = request => {
+	const authorization = request.get('authorization')
+	if (authorization && authorization.startsWith('Bearer ')) {
+		return authorization.replace('Bearer ', '')
+	}
+	return null
+}
+
 
 const getAllHasilSuara = async () => {
 	try {
@@ -12,10 +21,18 @@ const getAllHasilSuara = async () => {
 	}
 }
 
-const createNewHasilSuara = async (payload) => {
+const createNewHasilSuara = async (request) => {
 	try {
+		const payload = request.body
 		const tps = await tpsService.getTpsById(payload.tps_id)
-		const admin = await adminService.getAdminById(payload.created_by)
+
+		const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+
+		if(!decodedToken){
+			throw new Error('token invalid')
+		}
+		const admin = await adminService.getAdminById(decodedToken.id)
+
 		const suara = {
 			tps_id: tps.id,
 			jumlah_suara_paslon1: payload.jumlah_suara_paslon1,
@@ -29,7 +46,7 @@ const createNewHasilSuara = async (payload) => {
 
 		return await hasilSuaraRepository.create(suara)
 	} catch (error) {
-		throw new Error(`Service error: ${error.message}`);
+		throw new Error(error);
 	}
 }
 
@@ -72,6 +89,7 @@ const updateHasilSuara = async (id, payload) => {
 			created_by: admin.id,
 			approval: payload.approval,
 		}
+
 
 		return await hasilSuaraRepository.update(id, newHasilSuara)
 	} catch (error) {

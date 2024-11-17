@@ -56,7 +56,7 @@ const getAdminById = async (id) => {
 	}
 }
 
-const getAdminByUsername = async (username, password) => {
+const loginAdmin = async (username, password) => {
 	try {
 		const admin = await adminRepository.getByUsername(username)
 
@@ -72,9 +72,10 @@ const getAdminByUsername = async (username, password) => {
 
 		const userForToken = {
 			username: admin.username,
-			id: admin.id
+			id: admin.id,
+
 		}
-		const token = jwt.sign(userForToken, "quickCountSumenep")
+		const token = jwt.sign(userForToken, process.env.SECRET, {expiresIn:60*60})
 
 		return {
 			token,
@@ -109,5 +110,5 @@ module.exports = {
 	deleteAdmin,
 	getAdminById,
 	updateAdmin,
-	getAdminByUsername
+	loginAdmin
 }
