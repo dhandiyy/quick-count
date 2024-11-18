@@ -73,7 +73,7 @@ const loginAdmin = async (username, password) => {
 		const userForToken = {
 			username: admin.username,
 			id: admin.id,
-
+			role: admin.role
 		}
 		const token = jwt.sign(userForToken, process.env.SECRET, {expiresIn:60*60})
 

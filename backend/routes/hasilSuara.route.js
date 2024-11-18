@@ -1,6 +1,10 @@
 const router = require('express').Router()
 const hasilSuaraController = require('../controllers/hasilSuara.controller')
+const middleware = require("../utils/middleware");
 
+//public data route
+
+router.use(middleware.tokenExtractor)
 router.post('/', hasilSuaraController.createNewHasilSuara);
 router.get('/', hasilSuaraController.getAllHasilSuara);
 router.get('/:id', hasilSuaraController.getHasilSuaraById)

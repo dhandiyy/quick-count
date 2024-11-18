@@ -18,12 +18,12 @@ app.use(cors())
 app.use(express.json());
 app.use(middleware.requestLogger);
 
+app.use('/api/login', loginRouter)
+
 app.use('/api/tps', tpsRouter);
 app.use('/api/paslon', paslonRouter )
 app.use('/api/admin', adminRouter)
 app.use('/api/hasilsuara', hasilSuaraRouter)
-app.use('/api/login', loginRouter)
-
 
 
 app.use(middleware.unknownEndpoint)

@@ -2,8 +2,8 @@ const hasilSuaraService = require('../services/hasilSuara.service')
 
 const getAllHasilSuara = async (request, response) => {
 	try {
-
-		const data = await hasilSuaraService.getAllHasilSuara();
+		const token = request.token
+		const data = await hasilSuaraService.getAllHasilSuara(token);
 		return response.status(200).json({
 			message: 'Get all Hasil Suara success',
 			data: data,
@@ -21,23 +21,22 @@ const getAllHasilSuara = async (request, response) => {
 
 const createNewHasilSuara = async (request, response, next) => {
 	try {
-		const payload = request.body;
-		await hasilSuaraService.createNewHasilSuara(request)
+		const payload = await hasilSuaraService.createNewHasilSuara(request)
 		response.status(201).json({
 			message: "Create new Hasil Suara success",
 			data: payload
 		})
 	} catch (error) {
-		console.log(error)
 		next(error)
 	}
 }
 
 const updateHasilSuara = async (request, response) => {
 	try {
+		const token = request.token
 		const payload = request.body;
 		const id = request.params.id;
-		await hasilSuaraService.updateHasilSuara(id, payload);
+		await hasilSuaraService.updateHasilSuara(id, payload, token);
 		response.json({
 			message: "Update Hasil Suara success",
 			data: {
@@ -63,10 +62,11 @@ const updateHasilSuara = async (request, response) => {
 
 const deleteHasilSuara = async (request, response) => {
 	try {
+		const token = request.token
 		const id = request.params.id
-		await hasilSuaraService.deleteHasilSuara(id);
+		await hasilSuaraService.deleteHasilSuara(id, token);
 		response.json({
-			message: `Delete Hasil Suara with ${id} success`
+			message: `Delete Hasil Suara with id:${id} success`
 		})
 	} catch (error) {
 		if (error.message === 'Hasil Suara not found') {
@@ -83,23 +83,24 @@ const deleteHasilSuara = async (request, response) => {
 	}
 }
 
-const getHasilSuaraById = async (req, res) => {
+const getHasilSuaraById = async (request, response) => {
 	try {
-		const id = req.params.id;
-		const data = await hasilSuaraService.getHasilSuaraById(id);
-		return res.status(200).json({
+		const token = request.token
+		const id = request.params.id;
+		const data = await hasilSuaraService.getHasilSuaraById(id, token);
+		return response.status(200).json({
 			status: 'success',
 			message: 'Get Hasil Suara success',
 			data
 		});
 	} catch (error) {
 		if (error.message === 'Hasil Suara not found') {
-			return res.status(404).json({
+			return response.status(404).json({
 				status: 'error',
 				message: 'Hasil Suara not found'
 			});
 		}
-		return res.status(500).json({
+		return response.status(500).json({
 			status: 'error',
 			message: 'Internal server error',
 			error: error.message

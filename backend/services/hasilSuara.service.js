@@ -2,19 +2,11 @@ const hasilSuaraRepository = require('../repository/hasilSuara.repository')
 const tpsService = require('../services/tps.service')
 const adminService = require('../services/admin.service')
 
-const jwt = require('jsonwebtoken')
-
-const getTokenFrom = request => {
-	const authorization = request.get('authorization')
-	if (authorization && authorization.startsWith('Bearer ')) {
-		return authorization.replace('Bearer ', '')
-	}
-	return null
-}
-
-
-const getAllHasilSuara = async () => {
+const getAllHasilSuara = async (token) => {
 	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
 		return await hasilSuaraRepository.getAll();
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
@@ -24,14 +16,12 @@ const getAllHasilSuara = async () => {
 const createNewHasilSuara = async (request) => {
 	try {
 		const payload = request.body
-		const tps = await tpsService.getTpsById(payload.tps_id)
-
-		const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-
-		if(!decodedToken){
+		const token = request.token
+		const tps = await tpsService.getTpsById(payload.tps_id, token)
+		if(!request.token){
 			throw new Error('token invalid')
 		}
-		const admin = await adminService.getAdminById(decodedToken.id)
+		const admin = await adminService.getAdminById(token.id)
 
 		const suara = {
 			tps_id: tps.id,
@@ -50,16 +40,23 @@ const createNewHasilSuara = async (request) => {
 	}
 }
 
-const deleteHasilSuara = async (id) => {
+const deleteHasilSuara = async (id, token) => {
 	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
+		await getHasilSuaraById(id, token)
 		return await hasilSuaraRepository.remove(id)
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
 	}
 }
 
-const getHasilSuaraById = async (id) => {
+const getHasilSuaraById = async (id, token) => {
 	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
 		const hasilSuara = await hasilSuaraRepository.getById(id)
 		if (!hasilSuara) {
 			throw new Error('Hasil Suara not found');
@@ -70,13 +67,18 @@ const getHasilSuaraById = async (id) => {
 	}
 }
 
-const updateHasilSuara = async (id, payload) => {
+const updateHasilSuara = async (id, payload, token) => {
 	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
+
 		const existingHasilSuara = await hasilSuaraRepository.getById(id)
+
 		if (!existingHasilSuara) {
 			throw new Error('Hasil Suara not found')
 		}
-		const tps = await tpsService.getTpsById(payload.tps_id)
+		const tps = await tpsService.getTpsById(payload.tps_id, token)
 		const admin = await adminService.getAdminById(payload.created_by)
 
 		const newHasilSuara = {
