@@ -15,7 +15,8 @@ module.exports = {
 				"custom-white": "#FBFBFB",
 				"outline": "#D7D6D6",
 				"custom-black": "#222222",
-				"main": "#2F9371"
+				"main": "#2F9371",
+				"main2": "#ccfaeb",
 			}
 		},
 	},

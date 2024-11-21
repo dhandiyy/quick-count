@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html{
+        @apply font-sans text-custom-black
+    }
+    .scroll-hidden::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scroll-hidden {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
