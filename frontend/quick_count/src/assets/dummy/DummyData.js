@@ -4,7 +4,7 @@ export const chartData = {
         {
             data: [6500, 3500],
             label: "Total Suara",
-            backgroundColor: ["rgb(239 68 68)", "rgb(59 130 246)"],
+            backgroundColor: ["#2F9371", "rgb(59 130 246)"],
         },
     ]
 }
