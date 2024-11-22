@@ -27,10 +27,10 @@ function formatDate(timestamp) {
 }
 
 const VotingResult = () => {
-    return (<div className={`flex justify-center items-center h-full min-h-screen p-2 md:p-16`}>
+    return (<div className={`flex justify-center items-center h-full min-h-[90vh] p-2 md:p-16`}>
         <div className="w-full max-w-[1280px]">
-            <h1 className={"font-header text-center font-bold text-4xl my-6 md:my-12"}>Quick Count Pemilihan Bupati
-                <br/>Sumenep 2024</h1>
+            <h1 className={"font-header text-center font-bold text-4xl mb-6 md:mb-12"}>Quick Count Pemilihan Bupati
+                <br/>Kab. Sumenep 2024</h1>
 
             <div className={"flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-3 gap-4 lg:gap-8 w-full"}>
                 {/* PASLON 1 */}
@@ -57,7 +57,7 @@ const VotingResult = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"bg-red-500 h-8 rounded-b-xl"}/>
+                    <div className={"bg-main h-8 rounded-b-xl"}/>
                 </div>
 
                 {/* BAR CHART */}
@@ -111,12 +111,12 @@ const VotingResult = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"bg-blue-500 h-8 rounded-b-xl"}/>
+                    <div className={"bg-blue-400 h-8 rounded-b-xl"}/>
                 </div>
 
                 <div className="border border-outline rounded-2xl p-8 flex flex-col justify-between order-3">
                     <p className={"font-light"}>
-                        <div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-yellow-200"}/>
+                        <div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-main"}/>
                         Total Suara Sudah Dihitung
                     </p>
                     <div>
@@ -129,7 +129,7 @@ const VotingResult = () => {
 
                 <div className="border border-outline rounded-2xl p-8 flex flex-col justify-between col-span-2 order-3">
                     <p className={"font-light"}>
-                        <div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-yellow-200"}/>
+                        <div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-main"}/>
                         Updated At
                     </p>
                     <div>
