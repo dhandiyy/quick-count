@@ -2,7 +2,7 @@ import {BarElement, CategoryScale, Chart, Legend, LinearScale, Title, Tooltip} f
 import {Bar} from "react-chartjs-2"
 import {chartData, totalData} from "../assets/dummy/DummyData.js"
 import ChartDataLabels from "chartjs-plugin-datalabels"
-
+import {Link, Navigate, useNavigate} from "react-router-dom";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels)
 
@@ -27,6 +27,12 @@ function formatDate(timestamp) {
 }
 
 const VotingResult = () => {
+	const navigate = useNavigate()
+
+	const handleLogin = () => {
+		navigate('/login')
+	}
+
 	return (
 		<div className={`flex justify-center items-center h-full min-h-screen p-2 md:p-16`}>
 			<div className="w-full max-w-[1280px]">
@@ -117,10 +123,10 @@ const VotingResult = () => {
 					</div>
 
 					<div className="border border-outline rounded-2xl p-8 flex flex-col justify-between order-3">
-						<p className={"font-light"}>
+						<div className="flex items-center">
 							<div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-yellow-200"}/>
-							Total Suara Sudah Dihitung
-						</p>
+							<p className={"font-light"}>Total Suara Sudah Dihitung</p>
+						</div>
 						<div>
 							<p className={"font-header font-bold text-6xl"}>
 								{Math.round((totalData.counted / (totalData.counted + totalData.uncounted)) * 100)}%
@@ -131,19 +137,27 @@ const VotingResult = () => {
 
 					<div
 						className="border border-outline rounded-2xl p-8 flex flex-col justify-between col-span-2 order-3">
-						<p className={"font-light"}>
+						<div className="flex items-center">
 							<div className={"inline-block align-top rounded-full m-2 w-[10px] h-[10px] bg-yellow-200"}/>
-							Updated At
-						</p>
+							<p className={"font-light"}>Updated At</p>
+						</div>
 						<div>
 							<p className={"font-header font-bold text-2xl md:text-6xl"}>
 								{formatDate(Date.now())}
 							</p>
-							<p className={"font-light italic"}>source: <span
-								className={"font-normal"}>KPU Kabupaten Sumenep</span></p>
+							<p className={"font-light italic"}>source: <span className={"font-normal"}>KPU Kabupaten Sumenep</span>
+							</p>
 						</div>
 					</div>
+
+
 				</div>
+			</div>
+
+
+			<div>
+				<button onClick={handleLogin}>login</button>
+
 			</div>
 		</div>);
 };

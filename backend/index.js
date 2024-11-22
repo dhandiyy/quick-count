@@ -17,6 +17,11 @@ app.use(cors())
 
 app.use(express.json());
 app.use(middleware.requestLogger);
+app.use('/upload', middleware.upload.single('photo'), (req, res) => {
+	res.json({
+		message: 'Upload berhasil'
+	})
+})
 
 app.use('/api/login', loginRouter)
 

@@ -55,6 +55,7 @@ const Login = ({login}) => {
 							<p className="font-sans text-[1.1rem] mb-2">Username</p>
 							<input
 								type="text"
+								id="username"
 								value={username}
 								onChange={({target}) => setUsername(target.value)}
 								className="w-full outline outline-[0.1rem] h-12 outline-outline rounded-md px-4 mb-4"
@@ -64,6 +65,7 @@ const Login = ({login}) => {
 							<p className="font-sans text-[1.1rem] mb-2">Password</p>
 							<input
 								type="password"
+								id="password"
 								value={password}
 								onChange={({target}) => setPassword(target.value)}
 								className="w-full outline outline-[0.1rem] h-12 outline-outline rounded-md px-4 mb-4"

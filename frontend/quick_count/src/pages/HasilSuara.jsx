@@ -49,11 +49,15 @@ const HasilSuara = () => {
 				</div>
 
 				<div>
-					<p className={"text-xl text-custom-black my-2 font-bold"}>Bukti <span
-						className={"text-sm font-light italic"}>(Ukuran maksimum foto 2 mb)</span></p>
-					<button
-						className={"w-full outline mb-2 outline-[0.1rem] h-12 outline-outline rounded-md px-4 text-xl bg-outline"}>Upload
-					</button>
+					<p className={"text-xl text-custom-black my-2 font-bold"}>Bukti Foto<span
+						className={"text-sm font-light italic"}>(Ukuran maksimal foto 3 mb)</span></p>
+					{/*<label htmlFor="file_input">Upload</label>*/}
+					<input
+						id="file_input"
+						type="file"
+						required={true}
+						className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+					/>
 				</div>
 				<button className={"bg-main w-full h-14 rounded-full mt-5 mb-2 text-custom-white text-xl"}>Submit
 				</button>
