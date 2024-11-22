@@ -5,6 +5,10 @@ const getAll = async () => {
 		return await prisma.tps.findMany({
 			orderBy: {
 				id: 'asc',
+			},
+			include: {
+				Kecamatan: true,
+				Desa: true
 			}
 		});
 	} catch (error) {

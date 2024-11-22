@@ -9,7 +9,7 @@ const Header = () => {
                 </Link>
                 <div className={"flex gap-4 items-center font-medium"}>
                     <Link to={"detail"} className={"px-4 py-1 bg-white text-main rounded-lg font-medium md:p-0 md:bg-transparent md:text-white"}>Detail hasil Suara</Link>
-                    <Link to={"admin"} className={"px-4 py-1 bg-white text-main rounded-lg font-medium"}>Login</Link>
+                    <Link to={"login"} className={"px-4 py-1 bg-white text-main rounded-lg font-medium"}>Login</Link>
                 </div>
             </div>
         </div>

@@ -33,6 +33,7 @@ const remove = async (id) => {
 
 const getById = async (id) => {
 	const request = await axios.get(`${baseUrl}/${id}`, config)
+	return request.data
 }
 
 export default {

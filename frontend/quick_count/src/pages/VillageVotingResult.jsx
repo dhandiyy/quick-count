@@ -1,7 +1,7 @@
 import RightArrow from "../components/arrow/RightArrow.jsx";
 import {fixedData} from "../assets/dummy/DummyData.js";
 import {Link, useParams} from "react-router-dom";
-import {formatNumber} from "../utils/formatter.js";
+import {formatNumber} from "../utils/helper.js";
 import {useEffect, useState} from "react";
 import {
     aggregateDataByKecamatanAndDesa,

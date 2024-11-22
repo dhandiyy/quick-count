@@ -3,6 +3,7 @@ import Home from "./pages/Home.jsx";
 import Tps from "./pages/Tps.jsx";
 import HasilSuara from "./pages/HasilSuara.jsx";
 import DistrictVotingResult from "./pages/DistrictVotingResult.jsx";
+import VillageVotingResult from "./pages/VillageVotingResult.jsx";
 import Header from "./components/header/Header.jsx";
 
 import VotingResult from "./pages/VotingResult.jsx";
@@ -20,6 +21,9 @@ import {
 	useNavigate,
 	useParams
 } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {checkTokenValidity} from "./utils/helper.js";
+import {setAdmin} from "./reducers/adminReducer.js";
 
 const ProtectedRoute = ({ children, user, redirectTo = '/login' }) => {
 	if (!user) {
@@ -41,34 +45,25 @@ const RoleBasedRoute = ({ user, adminComponent: AdminComponent, superAdminCompon
 };
 
 function App() {
-	const [user, setUser] = useState(null);
+	const dispatch = useDispatch()
+	const user = useSelector((state) => state.admin)
+
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 
 
 	useEffect(() => {
-		const checkTokenValidity = (token) => {
-			try {
-				const decodedToken = jwtDecode(token);
-				console.log(decodedToken)
-				const currentTime = Date.now() / 1000;
-				return decodedToken.exp > currentTime;
-			} catch (error) {
-				return false;
-			}
-		};
-
-		const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
+		const loggedUserJSON = window.sessionStorage.getItem('loggedNoteAppUser');
 		if (loggedUserJSON) {
 			const user = JSON.parse(loggedUserJSON);
 
 			if (checkTokenValidity(user.token)) {
-				setUser({
+				dispatch(setAdmin({
 					...user,
 					token: `Bearer ${user.token}`,
-				});
+				}));
 			} else {
-				window.localStorage.removeItem('loggedNoteAppUser');
+				window.sessionStorage.removeItem('loggedNoteAppUser');
 				navigate('/login');
 			}
 		}
@@ -76,21 +71,21 @@ function App() {
 		setLoading(false);
 	}, []);
 
-	const handleLogin = async (userObject) => {
+	const handleLogin = async (adminObject) => {
 		try {
-			const response = await loginService.login(userObject);
+			const response = await loginService.login(adminObject);
 
 			if (response.status === 'error') {
 				return response;
 			}
 
-			const newUser = {
+			const newAdmin = {
 				...response,
 				token: `Bearer ${response.token}`,
 			};
 
-			window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(response));
-			setUser(newUser);
+			window.sessionStorage.setItem('loggedNoteAppUser', JSON.stringify(response));
+			dispatch(setAdmin(newAdmin));
 			navigate('/home');
 			return response;
 
@@ -102,12 +97,6 @@ function App() {
 		}
 	};
 
-	const handleLogout = () => {
-		window.localStorage.removeItem('loggedNoteAppUser');
-		setUser(null);
-		navigate('/');
-	};
-
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -117,8 +106,16 @@ function App() {
 		<div className="min-h-screen">
 			<Routes>
 				{/* Public Routes */}
-				<Route path="/" element={<VotingResult />} />
+				<Route path="/" element={
+					<>
+						<Header/>
+						<VotingResult />
+					</>
+				} />
 				<Route path="/login" element={<Login login={handleLogin} />} />
+				<Route path="/detail" element={<DistrictVotingResult/>}/>
+				<Route path="/detail/:id" element={<VillageVotingResult/>}/>
+
 
 				{/* Protected Routes */}
 				<Route

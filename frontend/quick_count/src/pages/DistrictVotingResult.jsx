@@ -2,7 +2,7 @@ import RightArrow from "../components/arrow/RightArrow.jsx";
 import {fixedData} from "../assets/dummy/DummyData.js";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {formatNumber} from "../utils/formatter.js";
+import {formatNumber} from "../utils/helper.js";
 import {getTotalVotesAndPercentagesByKecamatan, groupByKecamatan} from "../utils/dataManipulation.js";
 
 const DistrictVotingResult = () => {
