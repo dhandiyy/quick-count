@@ -1,4 +1,8 @@
+import {useNavigate} from "react-router-dom"
+
 const Home = () => {
+	const navigate = useNavigate();
+
 	return(
 		<div className="bg-background w-[412px] h-[915px] overflow-y-auto relative px-8 py-12">
 
@@ -20,8 +24,12 @@ const Home = () => {
 			<div className="my-12">
 				<p className="text-main font-header text-4xl font-bold">Input Data</p>
 				<div className="flex my-5 justify-between items-center gap-4">
-					<button className="w-full bg-main h-[60px] rounded-xl text-2xl text-custom-white">TPS</button>
-					<button className="w-full bg-main h-[60px] rounded-xl text-2xl text-custom-white">Hasil Suara</button>
+					<button
+						onClick={() => navigate("/tps")}
+						className="w-full bg-main h-[60px] rounded-xl text-2xl text-custom-white">TPS</button>
+					<button
+						onClick={() => navigate("/hasilsuara")}
+						className="w-full bg-main h-[60px] rounded-xl text-2xl text-custom-white">Hasil Suara</button>
 				</div>
 			</div>
 

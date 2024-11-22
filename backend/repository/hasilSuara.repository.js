@@ -5,6 +5,15 @@ const getAll = async () => {
 		return await prisma.hasilSuara.findMany({
 			orderBy: {
 				id: 'asc',
+			},
+			include: {
+				Tps: {
+					include: {
+						Kecamatan: true,
+						Desa: true
+					}
+				},
+				Admin: true
 			}
 		});
 	} catch (error) {

@@ -1,29 +1,29 @@
-import {Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js"
+import {BarElement, CategoryScale, Chart, Legend, LinearScale, Title, Tooltip} from "chart.js"
 import {Bar} from "react-chartjs-2"
 import {chartData, totalData} from "../assets/dummy/DummyData.js"
 import ChartDataLabels from "chartjs-plugin-datalabels"
-
+import {Link, Navigate, useNavigate} from "react-router-dom";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels)
 
 function formatDate(timestamp) {
-    const date = new Date(timestamp);
+	const date = new Date(timestamp);
 
-    // Format the date to match "12 Nov 2024 - 15:00"
-    const options = {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,  // Use 24-hour format
-    };
+	// Format the date to match "12 Nov 2024 - 15:00"
+	const options = {
+		day: '2-digit',
+		month: 'short',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false,  // Use 24-hour format
+	};
 
-    // Format the date and time using Intl.DateTimeFormat
-    const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date);
+	// Format the date and time using Intl.DateTimeFormat
+	const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date);
 
-    // Combine date and time with a " - " separator
-    return formattedDate.replace(',', ' -');
+	// Combine date and time with a " - " separator
+	return formattedDate.replace(',', ' -');
 }
 
 const VotingResult = () => {

@@ -80,7 +80,8 @@ const loginAdmin = async (username, password) => {
 		return {
 			token,
 			name: admin.nama,
-			username: admin.username
+			username: admin.username,
+			role: admin.role
 		}
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`)
