@@ -2,6 +2,9 @@ import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import Tps from "./pages/Tps.jsx";
 import HasilSuara from "./pages/HasilSuara.jsx";
+import DistrictVotingResult from "./pages/DistrictVotingResult.jsx";
+import Header from "./components/header/Header.jsx";
+
 import VotingResult from "./pages/VotingResult.jsx";
 import loginService from "./services/login.js"
 import {useEffect, useState} from "react";
