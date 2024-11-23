@@ -16,7 +16,7 @@ const getAll = async () => {
 	return request.data
 }
 
-const create = async (newTps, token) => {
+const create = async (newTps) => {
 	const response = await axios.post(baseUrl, newTps, config)
 	return response.data
 }

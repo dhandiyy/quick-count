@@ -85,4 +85,5 @@ model HasilSuara {
   created_by             Int
   created_at             DateTime @default(now())
   updated_at             DateTime @updatedAt
+  bukti_foto             String?
 }

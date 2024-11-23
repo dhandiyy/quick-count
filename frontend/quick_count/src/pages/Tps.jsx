@@ -143,6 +143,7 @@ const Tps = () => {
 					       name="nomerTps"
 					       value={formData.nomerTps}
 					       onChange={handleChange}
+					       required
 					       className="w-full outline mb-2 outline-[0.1rem] h-12 outline-outline rounded-md px-4 text-xl"/>
 				</div>
 
@@ -152,6 +153,7 @@ const Tps = () => {
 					       name="jumlahDpt"
 					       value={formData.jumlahDpt}
 					       onChange={handleChange}
+					       required
 					       className="w-full outline mb-2 outline-[0.1rem] h-12 outline-outline rounded-md px-4 text-xl"/>
 				</div>
 
@@ -161,6 +163,7 @@ const Tps = () => {
 						name="kecamatanId"
 						value={formData.kecamatanId}
 						onChange={handleChange}
+						required
 						className="w-full outline mb-2 outline-[0.1rem] h-12 outline-outline rounded-md px-4 text-xl">
 
 						<option value="" disabled>Pilih kecamatan</option>
@@ -179,6 +182,7 @@ const Tps = () => {
 						name="desaId"
 						value={formData.desaId}
 						onChange={handleChange}
+						required
 						className="w-full outline mb-2 outline-[0.1rem] h-12 outline-outline rounded-md px-4 text-xl"
 						disabled={!formData.kecamatanId}
 					>

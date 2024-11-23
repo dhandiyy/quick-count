@@ -24,7 +24,11 @@ const getAll = async () => {
 const create = async (payload) => {
 	try {
 		return await prisma.hasilSuara.create({
-			data: payload
+			data: payload,
+			include: {
+				Tps: true,
+				Admin: true
+			}
 		});
 
 	} catch (error) {
@@ -62,12 +66,29 @@ const update = async (id, payload) => {
 			where: {
 				id: Number(id)
 			},
-			data: payload
+			data: payload,
+			include: {
+				Tps: true,
+				Admin: true
+			}
 		})
 	} catch (error) {
 		throw new Error(`Error updating Hasil Suara: ${error.message}`);
 	}
+}
 
+const uploadBuktiFoto = async (id, filename) => {
+	try {
+		return await prisma.hasilSuara.update({
+			where: { id: parseInt(id) },
+			data: {
+				bukti_foto: filename,
+				updated_at: new Date()
+			}
+		});
+	} catch (error) {
+		throw new Error(`Error uploading bukti foto: ${error}`)
+	}
 }
 
 module.exports = {
@@ -76,4 +97,5 @@ module.exports = {
 	remove,
 	getById,
 	update,
+	uploadBuktiFoto,
 }

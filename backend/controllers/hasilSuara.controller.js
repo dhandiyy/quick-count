@@ -1,9 +1,42 @@
 const hasilSuaraService = require('../services/hasilSuara.service')
+const multer = require('multer')
+const path = require('path')
+
+// Konfigurasi Multer
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/images')
+	},
+	filename: function (req, file, cb) {
+		const timeStamp = new Date().getFullYear();
+		const originalName = file.originalname;
+
+		cb(null, `${timeStamp}-${originalName}`)
+	}
+})
+
+const upload = multer({
+	storage: storage,
+	limits: { fileSize: 3 * 1024 * 1024 } // Limit 3MB
+})
+
+const uploadBuktiFoto = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const data = await hasilSuaraService.uploadBuktiFoto(id, req.file);
+		return res.status(200).json({
+			message: 'Upload bukti foto success',
+			data: data,
+		});
+	} catch (error) {
+		next(error)
+	}
+}
+
 
 const getAllHasilSuara = async (request, response) => {
 	try {
-		const token = request.token
-		const data = await hasilSuaraService.getAllHasilSuara(token);
+		const data = await hasilSuaraService.getAllHasilSuara();
 		return response.status(200).json({
 			message: 'Get all Hasil Suara success',
 			data: data,
@@ -113,5 +146,7 @@ module.exports = {
 	createNewHasilSuara,
 	getHasilSuaraById,
 	deleteHasilSuara,
-	updateHasilSuara
+	updateHasilSuara,
+	uploadBuktiFoto,
+	upload
 }

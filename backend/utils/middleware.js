@@ -60,6 +60,17 @@ const upload = multer({
 	storage: storage,
 	limits : {
 		fileSize: 3 * 1000 * 1000 // 3mb
+	},
+	fileFilter: function (req, file, cb) {
+		const allowedTypes = /jpeg|jpg|png|gif/;
+		const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+		const mimetype = allowedTypes.test(file.mimetype);
+
+		if (extname && mimetype) {
+			return cb(null, true);
+		} else {
+			cb('Error: Images Only!');
+		}
 	}
 })
 

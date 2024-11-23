@@ -1,12 +1,12 @@
 const hasilSuaraRepository = require('../repository/hasilSuara.repository')
 const tpsService = require('../services/tps.service')
 const adminService = require('../services/admin.service')
+const path = require('path')
+const fs = require('fs')
 
-const getAllHasilSuara = async (token) => {
+
+const getAllHasilSuara = async () => {
 	try {
-		if (!token) {
-			throw new Error('token invalid')
-		}
 		return await hasilSuaraRepository.getAll();
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
@@ -99,10 +99,43 @@ const updateHasilSuara = async (id, payload, token) => {
 	}
 }
 
+const uploadBuktiFoto = async (id, file) => {
+	try {
+		// Validasi file
+		if (!file) {
+			throw new Error('No file uploaded');
+		}
+
+		const allowedTypes = /jpeg|jpg|png/;
+		const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+
+		if (!extname) {
+			throw new Error('Only jpeg, jpg, and png files are allowed');
+		}
+
+		// Generate unique filename
+		const timeStamp = new Date().getFullYear();
+		const originalName = file.originalname;
+		const filename = `${timeStamp}-${originalName}`;
+
+		// Update database dengan nama file
+		const result = await hasilSuaraRepository.uploadBuktiFoto(id, filename);
+
+		return result;
+	} catch (error) {
+		// Hapus file jika upload gagal
+		if (file && file.path) {
+			fs.unlinkSync(file.path);
+		}
+		throw new Error(error);
+	}
+}
+
 module.exports = {
 	getAllHasilSuara,
 	createNewHasilSuara,
 	deleteHasilSuara,
 	getHasilSuaraById,
-	updateHasilSuara
+	updateHasilSuara,
+	uploadBuktiFoto
 }
