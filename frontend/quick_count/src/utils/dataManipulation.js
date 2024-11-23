@@ -51,56 +51,6 @@ export const groupByKecamatan = (data) => {
     return Object.keys(result).map((key) => result[key])
 }
 
-// export const aggregateDataByKecamatanAndDesa = (data, kecamatanId) => {
-//     // Initialize the result object for the Kecamatan to be returned
-//     const result = {
-//         kecamatanId: kecamatanId,
-//         kecamatanName: "",
-//         jumlah_suara_paslon1: 0,
-//         jumlah_suara_paslon2: 0,
-//         jumlah_suara_sah: 0,
-//         jumlah_suara_tidak_sah: 0,
-//         total_suara_masuk: 0,
-//         tps_count: 0,
-//         desa: []
-//     };
-//
-//     // Loop through the data to aggregate results for the given kecamatanId
-//     data.forEach(item => {
-//         const kecamatan = item.Tps.Kecamatan;
-//         if (kecamatan.id === kecamatanId) {
-//             // Set the kecamatanName once, as it's the same for all records within the same Kecamatan
-//             if (!result.kecamatanName) {
-//                 result.kecamatanName = kecamatan.nama_kecamatan;
-//             }
-//
-//             const desa = item.Tps.Desa;
-//             const desaData = {
-//                 desaId: desa.id,
-//                 desaName: desa.nama_desa,
-//                 jumlah_suara_paslon1: item.jumlah_suara_paslon1,
-//                 jumlah_suara_paslon2: item.jumlah_suara_paslon2,
-//                 jumlah_suara_sah: item.jumlah_suara_paslon1 + item.jumlah_suara_paslon2, // Calculate jumlah_suara_sah
-//                 jumlah_suara_tidak_sah: item.jumlah_suara_tidak_sah,
-//                 total_suara_masuk: item.total_suara_masuk,
-//                 tps_count: 1 // Each item represents a TPS, so count 1 TPS for each record
-//             };
-//
-//             // Add the Desa data to the kecamatan's desa array
-//             result.desa.push(desaData);
-//
-//             // Aggregate total kecamatan data
-//             result.jumlah_suara_paslon1 += item.jumlah_suara_paslon1;
-//             result.jumlah_suara_paslon2 += item.jumlah_suara_paslon2;
-//             result.jumlah_suara_sah += (item.jumlah_suara_paslon1 + item.jumlah_suara_paslon2); // Aggregate jumlah_suara_sah
-//             result.jumlah_suara_tidak_sah += item.jumlah_suara_tidak_sah;
-//             result.total_suara_masuk += item.total_suara_masuk;
-//             result.tps_count += 1;
-//         }
-//     });
-//
-//     return result;
-// }
 
 export const aggregateDataByKecamatanAndDesa = (data, kecamatanId) => {
     // Create an object to store the aggregate data for the selected Kecamatan
