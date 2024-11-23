@@ -303,7 +303,9 @@ const HasilSuara = () => {
 									<td className="p-4 border-b">{hasil.jumlah_suara_tidak_sah}</td>
 									<td className="p-4 border-b">{hasil.total_suara_masuk}</td>
 									<td className="p-4 border-b">{hasil.status}</td>
-									<td className="p-4 border-b">{hasil.approval}</td>
+									<td className={`p-4 border-b ${hasil.approval === 'PENDING' ? 'bg-yellow-200' : hasil.approval === 'ACCEPT' ? 'bg-green-200' : hasil.approval === 'REJECT' ? 'bg-red-200' : ''}`}>
+										{hasil.approval}
+									</td>
 									<td className="p-4 border-b">
 										{hasil.bukti_foto && (
 											<a
