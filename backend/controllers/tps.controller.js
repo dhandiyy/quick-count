@@ -19,10 +19,10 @@ const createNewTps = async (request, response, next) => {
 	try {
 		const payload = request.body;
 		const token = request.token
-		await tpsService.createNewTps(payload, token)
+		const data = await tpsService.createNewTps(payload, token)
 		response.status(201).json({
 			message: "Create new TPS success",
-			data: payload
+			data: data
 		})
 	} catch (error) {
 		next(error)
@@ -34,12 +34,12 @@ const updateTps = async (request, response) => {
 		const token = request.token
 		const payload = request.body;
 		const id = request.params.id;
-		await tpsService.updateTps(id, payload, token);
+		const data = await tpsService.updateTps(id, payload, token);
 		response.json({
 			message: "Update TPS success",
 			data: {
 				id: id,
-				...payload
+				...data
 			}
 		})
 	} catch (error) {

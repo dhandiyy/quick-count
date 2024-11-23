@@ -19,9 +19,12 @@ const getAll = async () => {
 const create = async (payload) => {
 	try {
 		return await prisma.tps.create({
-			data: payload
+			data: payload,
+			include: {
+				Kecamatan: true,
+				Desa: true
+			}
 		});
-
 	} catch (error) {
 		throw new Error(`Error creating TPS: ${error}`);
 	}
@@ -58,7 +61,11 @@ const update = async (id, payload) => {
 			where: {
 				id: Number(id)
 			},
-			data: payload
+			data: payload,
+			include: {
+				Kecamatan: true,
+				Desa: true
+			}
 		})
 	} catch (error) {
 		throw new Error(`Error updating TPS: ${error.message}`);

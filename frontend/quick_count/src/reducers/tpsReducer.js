@@ -10,13 +10,23 @@ const tpsSlice = createSlice({
 		},
 		setTps(state, action) {
 			return action.payload
+		},
+		updateTps(state, action) {
+			return state.map(tps => {
+				tps.id === action.payload.id ? action.payload : tps
+			})
+		},
+		deleteTps(state, action) {
+			return state.filter(tps => tps.id !== action.payload.id)
 		}
 	}
 })
 
 export const {
 	createTps,
-	setTps
+	setTps,
+	updateTps,
+	deleteTps
 
 } = tpsSlice.actions
 
