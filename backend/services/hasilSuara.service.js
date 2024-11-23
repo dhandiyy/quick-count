@@ -79,7 +79,7 @@ const updateHasilSuara = async (id, payload, token) => {
 			throw new Error('Hasil Suara not found')
 		}
 		const tps = await tpsService.getTpsById(payload.tps_id, token)
-		const admin = await adminService.getAdminById(payload.created_by)
+		const admin = await adminService.getAdminById(token.id)
 
 		const newHasilSuara = {
 			tps_id: tps.id,

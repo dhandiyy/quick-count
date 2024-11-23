@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import tpsService from "../services/tps.js";
 import hasilSuaraService from "../services/hasilSuara.js"
 import {setTps} from "../reducers/tpsReducer.js";
@@ -21,6 +21,11 @@ const HasilSuara = () => {
 	});
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [editingId, setEditingId] = useState(null);
+
+
+	const formRef = useRef(null)
+
 
 	useEffect(() => {
 		hasilSuaraService.setToken(admin.token)
@@ -47,8 +52,35 @@ const HasilSuara = () => {
 		}
 	};
 
+	const handleEdit = (hasilSuaraItem) => {
+		formRef.current?.scrollIntoView({behavior: 'smooth'});
+
+		setEditingId(hasilSuaraItem.id);
+		setFormData({
+			tps_id: parseInt(hasilSuaraItem.tps_id),
+			jumlah_suara_paslon1: parseInt(hasilSuaraItem.jumlah_suara_paslon1),
+			jumlah_suara_paslon2: parseInt(hasilSuaraItem.jumlah_suara_paslon2),
+			jumlah_suara_tidak_sah: parseInt(hasilSuaraItem.jumlah_suara_tidak_sah),
+			total_suara_masuk: parseInt(hasilSuaraItem.total_suara_masuk),
+			status: hasilSuaraItem.status
+		})
+
+	}
+
+	const handleDelete = async (id) => {
+		if (window.confirm('Apakah Anda yakin ingin menghapus Hasil Suara ini?')) {
+			try {
+				await hasilSuaraService.remove(id);
+				await fetchHasilSuara();
+				alert('Data Hasil Suara berhasil dihapus');
+			} catch (error) {
+				alert('Terjadi kesalahan: ' + error.message);
+			}
+		}
+	}
+
 	const handleInputChange = (e) => {
-		const { name, value } = e.target;
+		const {name, value} = e.target;
 		setFormData(prev => ({
 			...prev,
 			[name]: value
@@ -71,7 +103,6 @@ const HasilSuara = () => {
 		setLoading(true);
 
 		try {
-			// Submit data hasil suara
 			const newHasilSuara = {
 				tps_id: parseInt(formData.tps_id),
 				jumlah_suara_paslon1: parseInt(formData.jumlah_suara_paslon1),
@@ -81,15 +112,37 @@ const HasilSuara = () => {
 				status: formData.status
 			}
 
-			const response = await hasilSuaraService.create(newHasilSuara);
+			if (editingId) {
+				tpsService.setToken(admin.token)
+				const response = await hasilSuaraService.update(editingId, newHasilSuara)
 
-			// Jika ada file yang dipilih, upload file
-			if (selectedFile && response.data.id) {
-				const formData = new FormData();
-				formData.append('bukti_foto', selectedFile);
+				// Jika ada file yang dipilih, upload file
+				if (selectedFile && response.data.id) {
+					const formData = new FormData();
+					formData.append('bukti_foto', selectedFile);
 
-				await hasilSuaraService.upload(response.data.id, formData)
+					await hasilSuaraService.upload(response.data.id, formData)
+				}
+				alert('Data berhasil diupdate!');
+
+			} else {
+				const response = await hasilSuaraService.create(newHasilSuara);
+
+				// Jika ada file yang dipilih, upload file
+				if (selectedFile && response.data.id) {
+					const formData = new FormData();
+					formData.append('bukti_foto', selectedFile);
+
+					await hasilSuaraService.upload(response.data.id, formData)
+				}
+
+				alert('Data berhasil disimpan!');
 			}
+
+			// Refresh data
+			fetchHasilSuara();
+			fetchTPS()
+
 
 			// Reset form
 			setFormData({
@@ -105,10 +158,6 @@ const HasilSuara = () => {
 				document.getElementById('file_input').value = '';
 			}
 
-			// Refresh data
-			fetchHasilSuara();
-			alert('Data berhasil disimpan!');
-
 		} catch (error) {
 			console.error('Error submitting data:', error);
 			alert('Terjadi kesalahan saat menyimpan data');
@@ -123,6 +172,7 @@ const HasilSuara = () => {
 
 			{/*form input*/}
 			<form onSubmit={handleSubmit}
+			      ref={formRef}
 			      className="w-full bg-custom-white py-5 px-8 rounded-xl border border-outline my-5">
 				<div>
 					<p className="text-xl text-custom-black my-2 font-bold">Nama TPS</p>
@@ -267,8 +317,17 @@ const HasilSuara = () => {
 										)}
 									</td>
 									<td className="p-4 border-b">
-										<button className="material-icons text-2xl text-red-500 mr-2">delete</button>
-										<button className="material-icons text-2xl text-custom-black ml-3">edit</button>
+										<button
+											type="button"
+											onClick={() => handleDelete(hasil.id)}
+											className="material-icons text-2xl text-red-500 mr-2">delete
+										</button>
+
+										<button
+											type="button"
+											onClick={() => handleEdit(hasil)}
+											className="material-icons text-2xl text-custom-black ml-3">edit
+										</button>
 									</td>
 								</tr>
 							))}
