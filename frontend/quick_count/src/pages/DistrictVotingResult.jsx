@@ -100,7 +100,7 @@ const DistrictVotingResult = () => {
 					</div>
 				</div>
 
-				<div className={"w-full lg:w-3/4 flex flex-col items-center mx-auto"}>
+				<div className={"w-full lg:w-5/6 flex flex-col items-center mx-auto"}>
 					{/* HINT */}
 					<div className="w-full flex flex-col md:flex-row gap-2 md:gap-8 my-2 italic text-sm text-gray-500">
 						<div className={"flex items-center gap-2"}>
@@ -118,7 +118,7 @@ const DistrictVotingResult = () => {
 						<table className="w-full text-sm text-left rtl:text-right text-gray-500">
 							{/* HEAD */}
 							<thead
-								className="text-xs text-gray-700 uppercase bg-outline">
+								className="text-md text-gray-700 uppercase bg-outline">
 							<tr>
 								<th scope="col" className="py-2 px-3 md:py-3 md:px-6">
 									No.
@@ -169,7 +169,7 @@ const DistrictVotingResult = () => {
 								))}
 
 								{/* TOTAL */}
-								<tr className="text-xs text-gray-700 uppercase bg-outline font-bold">
+								<tr className="text-md text-gray-700 uppercase bg-outline font-bold">
 									<td scope="col" className="py-1 ps-3 pe-12 md:py-3 md:ps-6 md:pe-64" colSpan={2}>
 										Total
 									</td>

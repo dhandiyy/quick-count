@@ -1,5 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {AlertCircle, Building, Check, HelpCircle, LayoutDashboard, Menu, UserCheck, Users, Vote, CheckCheck, X} from 'lucide-react';
+import {
+	AlertCircle,
+	Building,
+	CheckCheck,
+	HelpCircle,
+	LayoutDashboard,
+	Menu,
+	Trash2,
+	UserCheck,
+	Users,
+	Vote,
+	X
+} from 'lucide-react';
 import {useDispatch, useSelector} from "react-redux";
 import {setTps} from "../reducers/tpsReducer.js";
 import {setHasilSuara} from "../reducers/hasilSuaraReducer.js";
@@ -7,7 +19,7 @@ import {setPetugasTps} from "../reducers/petugasReducer.js";
 import hasilSuaraService from "../services/hasilSuara.js";
 import petugasTpsService from "../services/petugasTps.js"
 import tpsService from "../services/tps.js";
-
+import {AdminModal} from "../components/admin/AdminModal.jsx";
 
 
 const Sidebar = ({isOpen, toggleSidebar}) => {
@@ -171,7 +183,7 @@ const HomeSuperAdmin = () => {
 
 	const fetchTPS = async () => {
 		try {
-			const { data } = await tpsService.getAll();
+			const {data} = await tpsService.getAll();
 			dispatch(setTps(data));
 		} catch (error) {
 			console.error('Error fetching TPS:', error);
@@ -181,7 +193,7 @@ const HomeSuperAdmin = () => {
 
 	const fetchHasilSuara = async () => {
 		try {
-			const { data } = await hasilSuaraService.getAll();
+			const {data} = await hasilSuaraService.getAll();
 			dispatch(setHasilSuara(data));
 
 			// Calculate statistics
@@ -209,7 +221,7 @@ const HomeSuperAdmin = () => {
 
 	const fetchPetugasTps = async () => {
 		try {
-			const { data } = await petugasTpsService.getAll();
+			const {data} = await petugasTpsService.getAll();
 			dispatch(setPetugasTps(data));
 		} catch (error) {
 			console.error('Error fetching petugas TPS:', error);
@@ -276,7 +288,31 @@ const HomeSuperAdmin = () => {
 		} finally {
 			setIsLoading(false);
 		}
+	}
 
+	const handleCreateAdmin = async (formData) => {
+		try {
+			await petugasTpsService.create(formData);
+			alert('Admin berhasil ditambah')
+			await fetchPetugasTps();
+
+		} catch (error) {
+			alert('Terjadi kesalahan: ' + error.message);
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	const handleDeleteHasilSuara = async (id) => {
+		try {
+			await hasilSuaraService.remove(id);
+			alert('Hasil suara berhasil dihapus')
+			await fetchHasilSuara();
+		} catch (error) {
+			alert('Terjadi kesalahan: ' + error.message);
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	if (isLoading) {
@@ -418,6 +454,7 @@ const HomeSuperAdmin = () => {
 									<th className="p-4 text-left font-semibold border-b">Status</th>
 									<th className="p-4 text-left font-semibold border-b">Bukti</th>
 									<th className="p-4 text-left font-semibold border-b">Approval</th>
+									<th className="p-4 text-left font-semibold border-b">Action</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -444,6 +481,15 @@ const HomeSuperAdmin = () => {
 										</td>
 										<td className={`p-4 border-b ${hasil.approval === 'PENDING' ? 'bg-yellow-200' : hasil.approval === 'ACCEPT' ? 'bg-green-200' : hasil.approval === 'REJECT' ? 'bg-red-200' : ''}`}>
 											{hasil.approval}
+										</td>
+										<td className="p-4 border-b">
+											<button
+												type="button"
+												onClick={() => handleDeleteHasilSuara(hasil.id)}
+											>
+												<Trash2 className={"text-red-700"} size={20}/>
+
+											</button>
 										</td>
 									</tr>
 								))}
@@ -485,9 +531,9 @@ const HomeSuperAdmin = () => {
 											<button
 												type="button"
 												onClick={() => handleDeleteTps(tps.id)}
-												className="material-icons text-2xl text-red-500 mr-2"
 											>
-												delete
+												<Trash2 className={"text-red-700"} size={20}/>
+
 											</button>
 										</td>
 									</tr>
@@ -528,9 +574,8 @@ const HomeSuperAdmin = () => {
 											<button
 												type="button"
 												onClick={() => handleDeleteAdmin(tps.id)}
-												className="material-icons text-2xl text-red-500 mr-2"
 											>
-												delete
+												<Trash2 className={"text-red-700"} size={20}/>
 											</button>
 										</td>
 									</tr>
@@ -540,7 +585,7 @@ const HomeSuperAdmin = () => {
 							</table>
 						</div>
 					</div>
-
+					<AdminModal onSubmit={handleCreateAdmin}/>
 				</div>
 			</main>
 		</div>
