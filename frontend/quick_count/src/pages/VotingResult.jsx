@@ -31,6 +31,7 @@ function formatDate(timestamp) {
 const VotingResult = () => {
     const [updateData, setUpdateData] = useState([0,0])
     const [suaraSah, setSuaraSah] = useState(0)
+    const [totalSuara, setTotalSuara] = useState(0)
 
     const dispatch = useDispatch()
     const hasilSuara = useSelector(state => state.hasilSuara)
@@ -59,7 +60,9 @@ const VotingResult = () => {
         const totalSuaraPaslon1 = hasilSuaraAccepted.reduce((sum, hs) => sum + hs.jumlah_suara_paslon1, 0);
         const totalSuaraPaslon2 = hasilSuaraAccepted.reduce((sum, hs) => sum + hs.jumlah_suara_paslon2, 0);
         const totalSuaraSah = hasilSuaraAccepted.reduce((sum, hs) => sum + hs.jumlah_suara_paslon1 + hs.jumlah_suara_paslon2, 0);
+        const totalSemuaSuara = hasilSuaraAccepted.reduce((sum, hs) => sum + hs.jumlah_suara_paslon1 + hs.jumlah_suara_paslon2 + hs.jumlah_suara_tidak_sah, 0);
         setSuaraSah(totalSuaraSah);
+        setTotalSuara(totalSemuaSuara);
         setUpdateData([totalSuaraPaslon1, totalSuaraPaslon2]);
     }
 
@@ -178,7 +181,7 @@ const VotingResult = () => {
                         <p className={"font-header font-bold text-6xl"}>
                             {Math.round((totalData.counted / totalData.DPT) * 100)}%
                         </p>
-                        <p className={"font-light"}>{totalData.counted} dari {totalData.DPT}</p>
+                        <p className={"font-light"}>{totalSuara} dari {totalData.DPT}</p>
                     </div>
                 </div>
 

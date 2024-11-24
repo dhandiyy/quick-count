@@ -16,35 +16,39 @@ const DistrictVotingResult = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+
+	const fetchDataAndCalculate = async () => {
+		try {
+			setIsLoading(true);
+			setError(null);
+
+			// Selalu fetch data baru dari server
+			const response = await hasilSuaraService.getAll();
+			dispatch(setHasilSuara(response.data));
+
+			// Kalkulasi data dengan hasil suara yang baru
+			const hasilSuaraAccepted = response.data.filter(hs => hs.approval === "ACCEPT");
+			const groupedData = groupByKecamatan(hasilSuaraAccepted);
+			setData(groupedData);
+			const votesAndPercentages = getTotalVotesAndPercentagesByKecamatan(groupedData);
+			setTotal(votesAndPercentages);
+
+		} catch (err) {
+			setError(err.message || 'Terjadi kesalahan saat mengambil data');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	useEffect(() => {
-		const fetchDataAndCalculate = async () => {
-			try {
-				setIsLoading(true);
-				setError(null);
-
-				// Fetch data only if we don't have it
-				if (!hasilSuara || hasilSuara.length === 0) {
-					const response = await hasilSuaraService.getAll();
-					dispatch(setHasilSuara(response.data));
-				}
-
-				// Calculate data if we have hasilSuara
-				if (hasilSuara && hasilSuara.length > 0) {
-					const hasilSuaraAccepted = hasilSuara.filter(hs => hs.approval === "ACCEPT");
-					const groupedData = groupByKecamatan(hasilSuaraAccepted);
-					setData(groupedData);
-					const votesAndPercentages = getTotalVotesAndPercentagesByKecamatan(groupedData);
-					setTotal(votesAndPercentages);
-				}
-			} catch (err) {
-				setError(err.message || 'Terjadi kesalahan saat mengambil data');
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
 		fetchDataAndCalculate();
-	}, [dispatch, hasilSuara]);
+
+		// Set up interval untuk fetch data setiap 10 menit = 2*60*1000
+		const intervalId = setInterval(fetchDataAndCalculate, 10*60*1000);
+
+		// Cleanup interval saat component unmount
+		return () => clearInterval(intervalId);
+	}, []);
 
 	const handleOnClick = (data) => {
 		navigate(`/detail/${data.kecamatanId}`);

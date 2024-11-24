@@ -11,6 +11,10 @@ const HasilSuara = () => {
 	const tps = useSelector(state => state.tps);
 	const admin = useSelector(state => state.admin)
 
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [editingId, setEditingId] = useState(null);
+	const formRef = useRef(null);
 	const [formData, setFormData] = useState({
 		tps_id: '',
 		jumlah_suara_paslon1: '',
@@ -19,12 +23,6 @@ const HasilSuara = () => {
 		total_suara_masuk: '',
 		status: 'PARTIAL'
 	});
-	const [selectedFile, setSelectedFile] = useState(null);
-	const [loading, setLoading] = useState(false);
-	const [editingId, setEditingId] = useState(null);
-
-
-	const formRef = useRef(null)
 
 
 	useEffect(() => {

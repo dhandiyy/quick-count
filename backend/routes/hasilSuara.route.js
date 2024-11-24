@@ -15,6 +15,8 @@ router.use(middleware.tokenExtractor)
 router.post('/', hasilSuaraController.createNewHasilSuara);
 router.get('/:id', hasilSuaraController.getHasilSuaraById)
 router.put('/:id', hasilSuaraController.updateHasilSuara);
+router.put('/accept/:id', hasilSuaraController.acceptHasilSuara);
+router.put('/reject/:id', hasilSuaraController.rejectHasilSuara);
 router.delete('/:id', hasilSuaraController.deleteHasilSuara)
 
 module.exports = router

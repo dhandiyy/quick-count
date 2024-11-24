@@ -4,6 +4,7 @@ import adminReducer from "../reducers/adminReducer.js";
 import kecamatanReducer from "../reducers/kecamatanReducer.js";
 import desaReducer from "../reducers/desaReducer.js";
 import hasilSuaraReducer from "../reducers/hasilSuaraReducer.js";
+import petugasReducer from "../reducers/petugasReducer.js";
 
 const store = configureStore({
 	reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
 		admin: adminReducer,
 		kecamatan: kecamatanReducer,
 		desa: desaReducer,
-		hasilSuara: hasilSuaraReducer
+		hasilSuara: hasilSuaraReducer,
+		petugasTps: petugasReducer,
 	}
 })
 

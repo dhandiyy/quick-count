@@ -26,6 +26,16 @@ const update = async (id, newHasilSuara) => {
 	return request.data
 }
 
+const accept = async (id) => {
+	const request = await axios.put(`${baseUrl}/accept/${id}`,{}, config)
+	return request.data
+}
+
+const reject = async (id, newHasilSuara) => {
+	const request = await axios.put(`${baseUrl}/reject/${id}`, newHasilSuara, config)
+	return request.data
+}
+
 const remove = async (id) => {
 	const request = await axios.delete(`${baseUrl}/${id}`, config)
 	return request.data
@@ -52,5 +62,7 @@ export default {
 	remove,
 	getById,
 	setToken,
-	upload
+	upload,
+	accept,
+	reject
 }

@@ -18,7 +18,7 @@ const createNewHasilSuara = async (request) => {
 		const payload = request.body
 		const token = request.token
 		const tps = await tpsService.getTpsById(payload.tps_id, token)
-		if(!request.token){
+		if (!request.token) {
 			throw new Error('token invalid')
 		}
 		const admin = await adminService.getAdminById(token.id)
@@ -47,6 +47,69 @@ const deleteHasilSuara = async (id, token) => {
 		}
 		await getHasilSuaraById(id, token)
 		return await hasilSuaraRepository.remove(id)
+	} catch (error) {
+		throw new Error(`Service error: ${error.message}`);
+	}
+}
+
+const acceptHasilSuara = async (id, token) => {
+	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
+
+		const hasilSuara = await hasilSuaraRepository.getById(id)
+		const admin = await adminService.getAdminById(token.id)
+
+		if (!hasilSuara) {
+			throw new Error('Hasil Suara not found');
+
+		}
+		const newHasilSuara = {
+			tps_id: hasilSuara.tps_id,
+			jumlah_suara_paslon1: hasilSuara.jumlah_suara_paslon1,
+			jumlah_suara_paslon2: hasilSuara.jumlah_suara_paslon2,
+			jumlah_suara_tidak_sah: hasilSuara.jumlah_suara_tidak_sah,
+			total_suara_masuk: hasilSuara.total_suara_masuk,
+			status: hasilSuara.status,
+			created_by: admin.id,
+			approval: "ACCEPT"
+		}
+
+		return await hasilSuaraRepository.update(id, newHasilSuara);
+
+	} catch (error) {
+		throw new Error(`Service error: ${error.message}`);
+	}
+}
+
+const rejectHasilSuara = async (id, token) => {
+	try {
+		if (!token) {
+			throw new Error('token invalid')
+		}
+
+		const hasilSuara = await hasilSuaraRepository.getById(id);
+		const admin = await adminService.getAdminById(token.id);
+
+		if (!hasilSuara) {
+			throw new Error('Hasil Suara not found');
+		}
+
+		const newHasilSuara = {
+			tps_id: hasilSuara.tps_id,
+			jumlah_suara_paslon1: hasilSuara.jumlah_suara_paslon1,
+			jumlah_suara_paslon2: hasilSuara.jumlah_suara_paslon2,
+			jumlah_suara_tidak_sah: hasilSuara.jumlah_suara_tidak_sah,
+			total_suara_masuk: hasilSuara.total_suara_masuk,
+			status: hasilSuara.status,
+			created_by: admin.id,
+			approval: "REJECT"
+		}
+
+		return await hasilSuaraRepository.update(id, newHasilSuara);
+
+
 	} catch (error) {
 		throw new Error(`Service error: ${error.message}`);
 	}
@@ -137,5 +200,7 @@ module.exports = {
 	deleteHasilSuara,
 	getHasilSuaraById,
 	updateHasilSuara,
-	uploadBuktiFoto
+	uploadBuktiFoto,
+	acceptHasilSuara,
+	rejectHasilSuara,
 }

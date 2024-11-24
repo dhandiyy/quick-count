@@ -17,12 +17,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({
 	storage: storage,
-	limits: { fileSize: 3 * 1024 * 1024 } // Limit 3MB
+	limits: {fileSize: 3 * 1024 * 1024} // Limit 3MB
 })
 
 const uploadBuktiFoto = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const {id} = req.params;
 		const data = await hasilSuaraService.uploadBuktiFoto(id, req.file);
 		return res.status(200).json({
 			message: 'Upload bukti foto success',
@@ -118,6 +118,7 @@ const deleteHasilSuara = async (request, response) => {
 
 const getHasilSuaraById = async (request, response) => {
 	try {
+
 		const token = request.token
 		const id = request.params.id;
 		const data = await hasilSuaraService.getHasilSuaraById(id, token);
@@ -141,6 +142,58 @@ const getHasilSuaraById = async (request, response) => {
 	}
 };
 
+const acceptHasilSuara = async (request, response) => {
+	try {
+		const token = request.token;
+		const id = request.params.id;
+		const data = await hasilSuaraService.acceptHasilSuara(id, token);
+		return response.status(200).json({
+			status: 'success',
+			message: 'Hasil suara accepted',
+			data
+		});
+
+	} catch (error) {
+		if (error.message === 'Hasil Suara not found') {
+			return response.status(404).json({
+				status: 'error',
+				message: 'Hasil Suara not found'
+			});
+		}
+		return response.status(500).json({
+			status: 'error',
+			message: 'Internal server error',
+			error: error.message
+		});
+	}
+}
+
+const rejectHasilSuara = async (request, response) => {
+	try {
+		const token = request.token;
+		const id = request.params.id;
+		const data = await hasilSuaraService.rejectHasilSuara(id, token);
+		return response.status(200).json({
+			status: 'success',
+			message: 'Hasil suara rejected',
+			data
+		});
+	} catch (error) {
+		if (error.message === 'Hasil Suara not found') {
+			return response.status(404).json({
+				status: 'error',
+				message: 'Hasil Suara not found'
+			});
+		}
+		return response.status(500).json({
+			status: 'error',
+			message: 'Internal server error',
+			error: error.message
+		});
+	}
+}
+
+
 module.exports = {
 	getAllHasilSuara,
 	createNewHasilSuara,
@@ -148,5 +201,7 @@ module.exports = {
 	deleteHasilSuara,
 	updateHasilSuara,
 	uploadBuktiFoto,
-	upload
+	upload,
+	acceptHasilSuara,
+	rejectHasilSuara,
 }

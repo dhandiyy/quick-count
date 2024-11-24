@@ -54,6 +54,15 @@ const getById = async (id) => {
 			where: {
 				id: Number(id)
 			},
+			include: {
+				Tps: {
+					include: {
+						Kecamatan: true,
+						Desa: true
+					}
+				},
+				Admin: true
+			}
 		})
 	} catch (error) {
 		throw new Error(`Error getting Hasil Suara by ID: ${error.message}`);
