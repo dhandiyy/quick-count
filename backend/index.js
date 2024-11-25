@@ -16,6 +16,8 @@ const cors = require('cors')
 
 app.use(cors())
 
+app.use(express.static('dist'))
+
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use('/bukti', express.static('public/images'));
@@ -35,7 +37,7 @@ app.use('/api/kecamatan', kecamatanRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => {
 	console.log(`Server berhasil running di port:${PORT}`)
 })

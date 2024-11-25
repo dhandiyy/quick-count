@@ -304,10 +304,13 @@ const HomeSuperAdmin = () => {
 	}
 
 	const handleDeleteHasilSuara = async (id) => {
+		if (!window.confirm('Apakah Anda yakin ingin menghapus Hasil Suara ini?')) return;
+
 		try {
+			setIsLoading(true);
 			await hasilSuaraService.remove(id);
-			alert('Hasil suara berhasil dihapus')
 			await fetchHasilSuara();
+			alert('Hasil suara berhasil dihapus')
 		} catch (error) {
 			alert('Terjadi kesalahan: ' + error.message);
 		} finally {
@@ -407,7 +410,7 @@ const HomeSuperAdmin = () => {
 										<td className="p-4 border-b">
 											{hasil.bukti_foto && (
 												<a
-													href={`http://localhost:3001/bukti/${hasil.bukti_foto}`}
+													href={`https://hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
 													target="_blank"
 													rel="noopener noreferrer"
 													className="text-blue-600 hover:underline"
@@ -522,7 +525,7 @@ const HomeSuperAdmin = () => {
 								</thead>
 								<tbody>
 								{tps.map((tps) => (
-									<tr key={tps.id} className="hover:bg-gray-50">
+									<tr key={tps.id} className="hover:bg-main2">
 										<td className="p-4 border-b">{tps.nomer_tps}</td>
 										<td className="p-4 border-b">{tps.jumlah_dpt}</td>
 										<td className="p-4 border-b">{tps.Kecamatan.nama_kecamatan}</td>
@@ -565,7 +568,7 @@ const HomeSuperAdmin = () => {
 								</thead>
 								<tbody>
 								{petugasTps.map((tps) => (
-									<tr key={tps.id} className="hover:bg-gray-50">
+									<tr key={tps.id} className="hover:bg-main2">
 										<td className="p-4 border-b">{tps.id}</td>
 										<td className="p-4 border-b">{tps.nama}</td>
 										<td className="p-4 border-b">{tps.username}</td>

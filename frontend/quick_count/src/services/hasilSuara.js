@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3001/api/hasilsuara'
+const baseUrl = '/api/hasilsuara'
 
 let config = null
 

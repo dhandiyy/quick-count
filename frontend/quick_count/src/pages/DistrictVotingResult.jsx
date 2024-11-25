@@ -105,17 +105,17 @@ const DistrictVotingResult = () => {
 					<div className="w-full flex flex-col md:flex-row gap-2 md:gap-8 my-2 italic text-sm text-gray-500">
 						<div className={"flex items-center gap-2"}>
 							<div className={`w-4 h-4 bg-main inline-block rounded-full`}/>
-							<p>Paslon 1: <span className={"font-bold"}>Prabowo - Gibran</span></p>
+							<p>Paslon 1: <span className={"font-bold"}>Fikri - Unais</span></p>
 						</div>
 						<div className={"flex items-center gap-2"}>
-							<div className={`w-4 h-4 bg-blue-400 inline-block rounded-full`}/>
-							<p>Paslon 2: <span className={"font-bold"}>Anies - Amin</span></p>
+							<div className={`w-4 h-4 bg-main3 inline-block rounded-full`}/>
+							<p>Paslon 2: <span className={"font-bold"}>Fauzi - Hasyim</span></p>
 						</div>
 					</div>
 
 					{/* TABLE */}
 					<div className="w-full relative overflow-x-auto rounded-xl border-outline border">
-						<table className="w-full text-sm text-left rtl:text-right text-gray-500">
+						<table className="w-full text-md text-left rtl:text-right text-gray-500">
 							{/* HEAD */}
 							<thead
 								className="text-md text-gray-700 uppercase bg-outline">
@@ -130,14 +130,14 @@ const DistrictVotingResult = () => {
 									<div className={"flex items-center gap-2"}>
 										<div
 											className={`w-2 h-2 bg-main inline-block rounded-full`}/>
-										Paslon 1
+										Paslon 1 (FINAL)
 									</div>
 								</th>
 								<th scope="col" className="py-2 px-3 md:py-3 md:px-6 justify-items-center">
 									<div className={"flex items-center gap-2"}>
 										<div
-											className={`w-2 h-2 bg-blue-400 inline-block rounded-full`}/>
-										Paslon 2
+											className={`w-2 h-2 bg-main3 inline-block rounded-full`}/>
+										Paslon 2 (FAHAM)
 									</div>
 								</th>
 							</tr>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3001/api/desa'
+const baseUrl = '/api/desa'
 
 const getAll = async () => {
 	const request = await axios.get(baseUrl)
