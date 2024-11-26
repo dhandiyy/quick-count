@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = '/api/kecamatan'
+const baseUrl = 'https://newapiku.hasilsuarafinal.web.id/api/kecamatan'
 
 const getAll = async () => {
 	const request = await axios.get(baseUrl)

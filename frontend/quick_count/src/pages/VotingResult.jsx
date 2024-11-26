@@ -129,7 +129,7 @@ const VotingResult = () => {
 						<div className={"bg-main h-8 rounded-b-xl"}/>
 					</div>
 
-					{/* BAR CHART */}
+					 {/*BAR CHART*/}
 					{/*<div*/}
 					{/*	className="p-4 rounded-2xl flex flex-col h-full row-span-2 order-1 lg:order-2 aspect-square lg:aspect-auto">*/}
 					{/*	<Bar className={"h-full"} data={chartData} options={{*/}
@@ -157,7 +157,7 @@ const VotingResult = () => {
 					{/*	}}/>*/}
 					{/*</div>*/}
 
-					<div className={"max-w-screen"}>
+					<div className={"max-w-screen-sm row-span-2 order-1 lg:order-2"}>
 						<BarChartWithLinks
 							chartData={chartData}
 							totalData={totalData}
@@ -168,7 +168,7 @@ const VotingResult = () => {
 					{/* PASLON 2 */}
 					<div className="bg-custom-white p-4 rounded-2xl flex flex-col row-span-2 order-3">
 						<div className={"flex flex-col gap-3 bg-white p-4 rounded-t-xl"}>
-							<div>
+						<div>
 								<h3 className={""}>Pasangan Calon Nomer 2</h3>
 								<h2 className={"font-header font-bold text-xl"}>FAHAM</h2>
 							</div>

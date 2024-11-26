@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = '/api/login'
+const baseUrl = 'https://newapiku.hasilsuarafinal.web.id/api/login'
 
 const login = async (credential) => {
 	const response = await axios.post(baseUrl, credential)

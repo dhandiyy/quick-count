@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = '/api/tps'
+const baseUrl = 'https://newapiku.hasilsuarafinal.web.id/api/tps'
 
 let config = null
 

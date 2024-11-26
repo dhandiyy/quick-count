@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = '/api/admin'
+const baseUrl = 'https://newapiku.hasilsuarafinal.web.id/api/admin'
 
 // let config = null
 //
