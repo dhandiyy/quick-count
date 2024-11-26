@@ -157,11 +157,13 @@ const VotingResult = () => {
 					{/*	}}/>*/}
 					{/*</div>*/}
 
-					<BarChartWithLinks
-						chartData={chartData}
-						totalData={totalData}
-						links={links}
-					/>
+					<div className={"max-w-screen"}>
+						<BarChartWithLinks
+							chartData={chartData}
+							totalData={totalData}
+							links={links}
+						/>
+					</div>
 
 					{/* PASLON 2 */}
 					<div className="bg-custom-white p-4 rounded-2xl flex flex-col row-span-2 order-3">
