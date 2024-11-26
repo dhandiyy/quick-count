@@ -30,6 +30,8 @@ const HasilSuara = () => {
 		tpsService.setToken(admin.token)
 		fetchTPS();
 		fetchHasilSuara();
+		console.log("admin", admin)
+		console.log("HS->admin", hasilSuara)
 	}, []);
 
 	const fetchTPS = async () => {
@@ -293,7 +295,7 @@ const HasilSuara = () => {
 							</tr>
 							</thead>
 							<tbody>
-							{hasilSuara.filter(hs => hs.Admin.username === admin.username).map((hasil) => (
+							{hasilSuara.map((hasil) => (
 								<tr key={hasil.id} className="hover:bg-main2">
 									<td className="p-4 border-b">{hasil.Tps.nomer_tps}</td>
 									<td className="p-4 border-b">{hasil.jumlah_suara_paslon1}</td>
@@ -325,6 +327,7 @@ const HasilSuara = () => {
 
 										<button
 											type="button"
+											disabled={hasil.approval === "REJECT"}
 											onClick={() => handleEdit(hasil)}
 											className="material-icons text-2xl text-custom-black ml-3">edit
 										</button>

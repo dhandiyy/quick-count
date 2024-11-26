@@ -205,8 +205,8 @@ const HomeSuperAdmin = () => {
 				.filter(hs => hs.approval === "PENDING")
 				.reduce((sum, hs) => sum + hs.jumlah_suara_paslon1 + hs.jumlah_suara_paslon2 + hs.jumlah_suara_tidak_sah, 0);
 
-			const totalSuaraPaslon1 = data.reduce((sum, hs) => sum + hs.jumlah_suara_paslon1, 0);
-			const totalSuaraPaslon2 = data.reduce((sum, hs) => sum + hs.jumlah_suara_paslon2, 0);
+			const totalSuaraPaslon1 = data.filter(hs => hs.approval === "ACCEPT").reduce((sum, hs) => sum + hs.jumlah_suara_paslon1, 0);
+			const totalSuaraPaslon2 = data.filter(hs => hs.approval === "ACCEPT").reduce((sum, hs) => sum + hs.jumlah_suara_paslon2, 0);
 
 			setStats({
 				totalSuaraTerverifikasi: terverifikasi,
@@ -410,7 +410,7 @@ const HomeSuperAdmin = () => {
 										<td className="p-4 border-b">
 											{hasil.bukti_foto && (
 												<a
-													href={`https://hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
+													href={`https://newapiku.hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
 													target="_blank"
 													rel="noopener noreferrer"
 													className="text-blue-600 hover:underline"

@@ -77,7 +77,7 @@ const Home = () => {
 							</tr>
 							</thead>
 							<tbody>
-							{hasilSuara.filter(hs => hs.Admin.username === admin.username).map((hasil) => (
+							{hasilSuara.map((hasil) => (
 								<tr key={hasil.id} className="hover:bg-main2">
 									<td className="p-4 border-b">{hasil.Tps.nomer_tps}</td>
 									<td className="p-4 border-b">{hasil.jumlah_suara_paslon1}</td>
