@@ -11,6 +11,7 @@ import unaisPhoto from '../assets/Unais Ali Hisyam.jpg';
 import Fauzi from '../assets/Fauzi.jpg';
 import Kyai from '../assets/kyai.jpg';
 import BarChartWithLinks from "../components/barChart/BarChartWithLinks.jsx";
+import UnderMaintenance from "./UnderMaitenance.jsx";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels)
 
@@ -97,6 +98,8 @@ const VotingResult = () => {
 
 	return (
 		<div className={`flex justify-center items-center h-full min-h-[90vh] p-2`}>
+			{/*<UnderMaintenance />*/}
+
 			<div className="w-full max-w-[1280px]">
 				<h1 className={"font-header text-center font-bold text-4xl mb-6 md:mb-12"}>Quick Count Pemilihan Bupati
 					<br/>Kab. Sumenep 2024</h1>
@@ -128,34 +131,6 @@ const VotingResult = () => {
 						</div>
 						<div className={"bg-main h-8 rounded-b-xl"}/>
 					</div>
-
-					 {/*BAR CHART*/}
-					{/*<div*/}
-					{/*	className="p-4 rounded-2xl flex flex-col h-full row-span-2 order-1 lg:order-2 aspect-square lg:aspect-auto">*/}
-					{/*	<Bar className={"h-full"} data={chartData} options={{*/}
-					{/*		responsive: true, maintainAspectRatio: false, plugins: {*/}
-					{/*			title: {*/}
-					{/*				display: true, text: 'Hasil Perhitungan Suara (%)',*/}
-					{/*			}, tooltip: {*/}
-					{/*				enabled: true*/}
-					{/*			}, legend: {*/}
-					{/*				display: false*/}
-					{/*			}, datalabels: {*/}
-					{/*				display: true, // Enable data labels*/}
-					{/*				color: 'white', // Text color inside the bars*/}
-					{/*				align: 'center', // Align labels in the center of the bars*/}
-					{/*				anchor: 'center', // Anchor to the center of each bar*/}
-					{/*				font: {*/}
-					{/*					weight: 'bold', // Make the label text bold*/}
-					{/*					size: 32, // Font size*/}
-					{/*				}, formatter: function (value) {*/}
-					{/*					// Add suffix (e.g., percentage sign or any custom text)*/}
-					{/*					return Math.round((value / totalData.counted) * 100) + '%'; // Add '%' suffix to the value*/}
-					{/*				},*/}
-					{/*			},*/}
-					{/*		},*/}
-					{/*	}}/>*/}
-					{/*</div>*/}
 
 					<div className={"max-w-screen-sm row-span-2 order-1 lg:order-2"}>
 						<BarChartWithLinks
@@ -215,11 +190,14 @@ const VotingResult = () => {
 							<p className={"font-header font-bold text-2xl md:text-6xl"}>
 								{formatDate(Date.now())}
 							</p>
-							<p className={"font-light italic"}>source: <span
-								className={"font-normal"}>Relawan Pasangan Ali Fikri dan Unais Ali <span className={"font-extrabold"}>(FINAL)</span></span></p>
+							<p className={"font-light italic"}>Source: <span
+								className={"font-normal"}>Relawan Pasangan Ali Fikri dan Unais Ali <span
+								className={"font-extrabold"}>(FINAL) </span></span></p>
+
+							<p className={"font-light italic"}>Kontak kami: <span
+								className={"font-normal"}>+601123756635</span></p>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>

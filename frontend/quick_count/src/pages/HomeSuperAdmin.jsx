@@ -410,7 +410,7 @@ const HomeSuperAdmin = () => {
 										<td className="p-4 border-b">
 											{hasil.bukti_foto && (
 												<a
-													href={`https://newapiku.hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
+													href={`http://localhost:3001/bukti/${hasil.bukti_foto}`}
 													target="_blank"
 													rel="noopener noreferrer"
 													className="text-blue-600 hover:underline"
@@ -473,7 +473,7 @@ const HomeSuperAdmin = () => {
 										<td className="p-4 border-b">
 											{hasil.bukti_foto && (
 												<a
-													href={`https://newapiku.hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
+													href={`http://localhost:3001/bukti/${hasil.bukti_foto}`}
 													target="_blank"
 													rel="noopener noreferrer"
 													className="text-blue-600 hover:underline"

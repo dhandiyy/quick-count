@@ -1,4 +1,3 @@
-import Footer from "../components/footer/Footer.jsx";
 import {useState} from "react";
 
 const Login = ({login}) => {
@@ -80,7 +79,6 @@ const Login = ({login}) => {
 					</form>
 				</div>
 			</div>
-			<Footer/>
 		</div>
 	)
 }

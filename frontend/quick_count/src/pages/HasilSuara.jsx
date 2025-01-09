@@ -67,17 +67,17 @@ const HasilSuara = () => {
 
 	}
 
-	const handleDelete = async (id) => {
-		if (window.confirm('Apakah Anda yakin ingin menghapus Hasil Suara ini?')) {
-			try {
-				await hasilSuaraService.remove(id);
-				await fetchHasilSuara();
-				alert('Data Hasil Suara berhasil dihapus');
-			} catch (error) {
-				alert('Terjadi kesalahan: ' + error.message);
-			}
-		}
-	}
+	// const handleDelete = async (id) => {
+	// 	if (window.confirm('Apakah Anda yakin ingin menghapus Hasil Suara ini?')) {
+	// 		try {
+	// 			await hasilSuaraService.remove(id);
+	// 			await fetchHasilSuara();
+	// 			alert('Data Hasil Suara berhasil dihapus');
+	// 		} catch (error) {
+	// 			alert('Terjadi kesalahan: ' + error.message);
+	// 		}
+	// 	}
+	// }
 
 	const handleInputChange = (e) => {
 		const {name, value} = e.target;
@@ -319,11 +319,11 @@ const HasilSuara = () => {
 										)}
 									</td>
 									<td className="p-4 border-b">
-										<button
-											type="button"
-											onClick={() => handleDelete(hasil.id)}
-											className="material-icons text-2xl text-red-500 mr-2">delete
-										</button>
+										{/*<button*/}
+										{/*	type="button"*/}
+										{/*	onClick={() => handleDelete(hasil.id)}*/}
+										{/*	className="material-icons text-2xl text-red-500 mr-2">delete*/}
+										{/*</button>*/}
 
 										<button
 											type="button"
