@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use('/bukti', express.static('public/images'));
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 
 app.use('/api/login', loginRouter)
