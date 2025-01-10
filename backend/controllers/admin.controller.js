@@ -6,7 +6,7 @@ const login = async (request, response) => {
 		const {username, password} = request.body
 		const adminValidated = await adminService.loginAdmin(username, password)
 
-		if(!adminValidated){
+		if (!adminValidated) {
 			return response.status(401).json({
 				error: 'invalid username or password'
 			})

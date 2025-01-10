@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.vercel
 /test-results/
 /playwright-report/
 /blob-report/
