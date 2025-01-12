@@ -1,14 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3001/api/admin'
-
-// let config = null
-//
-// const setToken = (newToken) => {
-// 	config = {
-// 		headers: {Authorization: newToken}
-// 	}
-// }
+const baseUrl = `${import.meta.env.VITE_API_URL}/admin`
 
 const getAll = async () => {
 	const request = await axios.get(baseUrl)

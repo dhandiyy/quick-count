@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3001/api/tps'
+const baseUrl = `${import.meta.env.VITE_API_URL}/tps`
 
 let config = null
 

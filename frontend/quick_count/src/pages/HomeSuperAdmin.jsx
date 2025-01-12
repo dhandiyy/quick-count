@@ -65,48 +65,6 @@ const Sidebar = ({isOpen, toggleSidebar}) => {
 	);
 };
 
-// const DataTable = ({title, data, showVerify = false}) => {
-// 	return (
-// 		<div className="bg-white rounded-lg shadow p-6 mb-12">
-// 			<h2 className="text-xl font-semibold mb-4">{title}</h2>
-// 			<div className="overflow-x-auto">
-// 				<table className="min-w-full">
-// 					<thead>
-// 					<tr className="bg-gray-50">
-// 						{Object.keys(data[0]).map((header) => (
-// 							<th key={header}
-// 							    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-// 								{header}
-// 							</th>
-// 						))}
-// 						{showVerify && <th className="px-6 py-3 text-right">Action</th>}
-// 					</tr>
-// 					</thead>
-// 					<tbody className="divide-y divide-gray-200">
-// 					{data.map((row, index) => (
-// 						<tr key={index} className="hover:bg-gray-50">
-// 							{Object.values(row).map((cell, cellIndex) => (
-// 								<td key={cellIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-// 									{cell}
-// 								</td>
-// 							))}
-// 							{showVerify && (
-// 								<td className="px-6 py-4 text-right">
-// 									<button
-// 										className="text-green-600 hover:text-green-800 flex items-center space-x-1 ml-auto">
-// 										<Check size={16}/>
-// 										<span>Verify</span>
-// 									</button>
-// 								</td>
-// 							)}
-// 						</tr>
-// 					))}
-// 					</tbody>
-// 				</table>
-// 			</div>
-// 		</div>
-// 	);
-// };
 
 const SummaryCard = ({title, stats, icon: Icon, bgColor = "bg-white"}) => {
 	return (

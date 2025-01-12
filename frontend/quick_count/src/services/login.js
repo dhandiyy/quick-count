@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'https://quick-count-3i5rcip2w-dhandiyys-projects.vercel.app/api/login'
+const baseUrl = `${import.meta.env.VITE_API_URL}/login`
 
 const login = async (credential) => {
 	const response = await axios.post(baseUrl, credential)

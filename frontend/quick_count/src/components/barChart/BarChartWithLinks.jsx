@@ -72,7 +72,7 @@ const BarChartWithLinks = ({ chartData, totalData, links }) => {
 					plugins: {
 						title: {
 							display: true,
-							text: 'Hasil Perhitungan Suara (%)',
+							text: 'Hasil Perhitungan Suara (%)' ,
 						},
 						tooltip: {
 							enabled: true
@@ -100,6 +100,7 @@ const BarChartWithLinks = ({ chartData, totalData, links }) => {
 				}}
 				plugins={[clickableAreasPlugin]}
 			/>
+
 		</div>
 	);
 };

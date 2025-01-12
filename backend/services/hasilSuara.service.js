@@ -59,7 +59,6 @@ const acceptHasilSuara = async (id, token) => {
 		}
 
 		const hasilSuara = await hasilSuaraRepository.getById(id)
-		const admin = await adminService.getAdminById(token.id)
 
 		if (!hasilSuara) {
 			throw new Error('Hasil Suara not found');
@@ -72,7 +71,7 @@ const acceptHasilSuara = async (id, token) => {
 			jumlah_suara_tidak_sah: hasilSuara.jumlah_suara_tidak_sah,
 			total_suara_masuk: hasilSuara.total_suara_masuk,
 			status: hasilSuara.status,
-			created_by: admin.id,
+			created_by: hasilSuara.created_by,
 			approval: "ACCEPT"
 		}
 
@@ -90,7 +89,6 @@ const rejectHasilSuara = async (id, token) => {
 		}
 
 		const hasilSuara = await hasilSuaraRepository.getById(id);
-		const admin = await adminService.getAdminById(token.id);
 
 		if (!hasilSuara) {
 			throw new Error('Hasil Suara not found');
@@ -103,7 +101,7 @@ const rejectHasilSuara = async (id, token) => {
 			jumlah_suara_tidak_sah: hasilSuara.jumlah_suara_tidak_sah,
 			total_suara_masuk: hasilSuara.total_suara_masuk,
 			status: hasilSuara.status,
-			created_by: admin.id,
+			created_by: hasilSuara.created_by,
 			approval: "REJECT"
 		}
 

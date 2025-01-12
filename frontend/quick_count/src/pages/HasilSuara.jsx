@@ -30,8 +30,6 @@ const HasilSuara = () => {
 		tpsService.setToken(admin.token)
 		fetchTPS();
 		fetchHasilSuara();
-		console.log("admin", admin)
-		console.log("HS->admin", hasilSuara)
 	}, []);
 
 	const fetchTPS = async () => {
@@ -67,18 +65,6 @@ const HasilSuara = () => {
 
 	}
 
-	// const handleDelete = async (id) => {
-	// 	if (window.confirm('Apakah Anda yakin ingin menghapus Hasil Suara ini?')) {
-	// 		try {
-	// 			await hasilSuaraService.remove(id);
-	// 			await fetchHasilSuara();
-	// 			alert('Data Hasil Suara berhasil dihapus');
-	// 		} catch (error) {
-	// 			alert('Terjadi kesalahan: ' + error.message);
-	// 		}
-	// 	}
-	// }
-
 	const handleInputChange = (e) => {
 		const {name, value} = e.target;
 		setFormData(prev => ({
@@ -113,7 +99,6 @@ const HasilSuara = () => {
 			}
 
 			if (editingId) {
-				tpsService.setToken(admin.token)
 				const response = await hasilSuaraService.update(editingId, newHasilSuara)
 
 				// Jika ada file yang dipilih, upload file
@@ -295,7 +280,7 @@ const HasilSuara = () => {
 							</tr>
 							</thead>
 							<tbody>
-							{hasilSuara.map((hasil) => (
+							{hasilSuara.filter(hs => hs.created_by === admin.id).map((hasil) => (
 								<tr key={hasil.id} className="hover:bg-main2">
 									<td className="p-4 border-b">{hasil.Tps.nomer_tps}</td>
 									<td className="p-4 border-b">{hasil.jumlah_suara_paslon1}</td>
@@ -309,7 +294,7 @@ const HasilSuara = () => {
 									<td className="p-4 border-b">
 										{hasil.bukti_foto && (
 											<a
-												href={`https://newapiku.hasilsuarafinal.web.id/bukti/${hasil.bukti_foto}`}
+												href={`http://localhost:3001/bukti/${hasil.bukti_foto}`}
 												target="_blank"
 												rel="noopener noreferrer"
 												className="text-blue-600 hover:underline"
@@ -327,9 +312,9 @@ const HasilSuara = () => {
 
 										<button
 											type="button"
-											disabled={hasil.approval === "REJECT"}
+											disabled={hasil.approval === "REJECT" || hasil.approval === "ACCEPT"}
 											onClick={() => handleEdit(hasil)}
-											className="material-icons text-2xl text-custom-black ml-3">edit
+											className={"material-icons text-2xl text-custom-black ml-3"}> edit
 										</button>
 									</td>
 								</tr>

@@ -13,7 +13,6 @@ const getAll = async () => {
 						Desa: true
 					}
 				},
-				Admin: true
 			}
 		});
 	} catch (error) {
@@ -27,7 +26,6 @@ const create = async (payload) => {
 			data: payload,
 			include: {
 				Tps: true,
-				Admin: true
 			}
 		});
 
@@ -61,7 +59,6 @@ const getById = async (id) => {
 						Desa: true
 					}
 				},
-				Admin: true
 			}
 		})
 	} catch (error) {
@@ -78,7 +75,6 @@ const update = async (id, payload) => {
 			data: payload,
 			include: {
 				Tps: true,
-				Admin: true
 			}
 		})
 	} catch (error) {
